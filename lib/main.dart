@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       debugShowCheckedModeBanner: false,
       theme:ThemeData(
-        primaryColor: Colors.blueAccent[700],
+        primaryColor: Colors.blue[800],
       ),
       routes: {
         'splashScreen' : (BuildContext context) => SplashScreen(),

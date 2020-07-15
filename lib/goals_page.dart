@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:aquadoro/goal_card.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
 class GoalsPage extends StatefulWidget {
   @override
   _GoalsPageState createState() => _GoalsPageState();
-}
+}//GoalsPage
 
 class _GoalsPageState extends State<GoalsPage> {
+
+  final List<GoalCard> _metas =[];
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: _fadeText(),
       ),
-      body:SingleChildScrollView( //Oara que no haya problema con el teclado
-          child: ListView(
-          padding: EdgeInsets.all(10.0),
-          children: <Widget>[
-            Divider()
-          ],
+      body:SingleChildScrollView( //Para que no haya problema con el teclado
+          child: ListView.builder(
+            itemBuilder: (_ , int index) => _metas[index],
+            // reverse: true,
+            padding: EdgeInsets.all(5.0),
+            itemCount: _metas.length,
+          ), 
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+
+        },
+        child: Icon(
+         Icons.add_circle_outline ,
+         color: Color.fromRGBO(42, 229, 186, 0.9),
         ),
       ),
     );

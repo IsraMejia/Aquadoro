@@ -13,15 +13,14 @@ class _GoalsPageState extends State<GoalsPage> {
       appBar: AppBar(
         title: _fadeText(),
       ),
-      body:Column(
-        children: <Widget>[
-          
-          Divider()
-        
-
-
-        ],
-      ) ,
+      body:SingleChildScrollView( //Oara que no haya problema con el teclado
+          child: ListView(
+          padding: EdgeInsets.all(10.0),
+          children: <Widget>[
+            Divider()
+          ],
+        ),
+      ),
     );
   }//build
 

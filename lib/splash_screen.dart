@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
               width: 240.0,
               
               child: ColorizeAnimatedTextKit(
-                speed: Duration(milliseconds: 300),
+                speed: Duration(milliseconds: 1300),
                 totalRepeatCount: 1,
                 onFinished: () => Navigator.pushReplacementNamed(context, 'goalsPage') ,
                 text: [

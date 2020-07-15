@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
  * usare una logica similar a la del chatbot y para agregar una nueva tarjeta
  * se hara uso de un boton en el goals page
  */
-class GoalCard extends StatelessWidget {
+class GoalCard extends StatefulWidget {
 
   GoalCard({
     this.actividad,
@@ -13,12 +13,17 @@ class GoalCard extends StatelessWidget {
     this.tDescanso,
   });
 
-  String actividad;
-  int tConcentracion;
-  int tDescanso;
-  final AnimationController animationController;
+  String actividad = 'Actividad';
+  int tConcentracion = 25;
+  int tDescanso = 5;
 
+  @override
+  _GoalCardState createState() => _GoalCardState();
+}
+
+class _GoalCardState extends State<GoalCard> {
   
+  final AnimationController animationController;
 
   @override
   Widget build(BuildContext context) {
@@ -34,43 +39,75 @@ class GoalCard extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(10.0),
         child: Row(
+          
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Container(//Texto de Actividad
-          //Pensandolo bien aqui sera un textflied
+          Container( //entrada de la actividad
             width: anchoPantalla*0.4,
             padding: EdgeInsets.symmetric( horizontal: 5.0),
-            child: Text(  actividad,
-              style: TextStyle(
-                fontSize: 18, color: Colors.blueGrey[600]
-              ),
-              textAlign: TextAlign.start, 
-            ),
+            child: _actividadInput(),
           ),
 
-          //numberspickers para los tiempos del timer
-
-
+          Expanded(//entrada de tiempos
+            child: Row(
+              children: <Widget>[
+                _inputConcentracion(),
+                _inputDescanso()
+              ],
+            )
+          ),
+          
+          Container(//boton para iniciar el pomodoro
+            width: anchoPantalla*0.15,
+            child: FlatButton(
+              onPressed: (){},
+               child: Icon(Icons.chevron_right),
+            ),
+          ),
 
          ],
         ),
       ),
     );
-  }//build
+  }
 
-  /*
-  Estaba pensando si dividirlo en distintos metodos para no hacer un 
-  mounstro que no se pueda leer, pero viendola bien
-  las tarjetas no necesitaran mucho, espero jaja
-   
-  Widget _goalCard(String actividad, int tCon, int tDesc){
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Container(
-
-        ),
-      ],
+  Widget _actividadInput(){
+     return TextFormField(
+      autofocus: true,
+      // controller: _textController,
+      decoration: InputDecoration(
+      hintText: 'Actividad',
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ), 
+      ),
+      onSaved : (actividad)=> widget.actividad = actividad
+      
     );
-  }*/
+  }//_actividadInput()
+
+  Widget _inputDescanso(){
+    return TextFormField(
+       initialValue:  'Descanso',
+      keyboardType: TextInputType.numberWithOptions(decimal: true),
+      decoration: InputDecoration(
+        labelText: "minutos",
+      ),
+      onSaved : (tiempoDescanso)=> widget.tDescanso  = double.parse(tiempoDescanso) as int ,
+    );
+  }
+
+  Widget _inputConcentracion(){
+    return TextFormField(
+       initialValue:  'Concentracion',
+      keyboardType: TextInputType.numberWithOptions(decimal: true),
+      decoration: InputDecoration(
+        labelText: "minutos",
+      ),
+      onSaved : (tiempoConcentracion)=> widget.tConcentracion  = double.parse(tiempoConcentracion) as int ,
+    );
+  }
+
+
+  
 }

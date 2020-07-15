@@ -1,7 +1,8 @@
-import 'package:aquadoro/goals_page.dart';
-import 'package:aquadoro/splash.dart';
-import 'package:aquadoro/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:aquadoro/goals_page.dart';
+import 'package:aquadoro/splash_screen.dart';
+import 'package:aquadoro/pomodoro_page.dart';
+
  
 void main() => runApp(MyApp());
  
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'splashScreen' : (BuildContext context) => SplashScreen(),
         'goalsPage'    : (BuildContext context) => GoalsPage(),
-        'splash'       : (BuildContext context) => Splash(),
+        'pomodoroPage' : (BuildContext context) => PomodoroPage(),         
       },
       initialRoute: 'splashScreen',
     );

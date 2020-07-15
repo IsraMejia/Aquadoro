@@ -11,7 +11,7 @@ class _GoalsPageState extends State<GoalsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: fadeText(),
+        title: _fadeText(),
       ),
       body:Column(
         children: <Widget>[
@@ -25,7 +25,7 @@ class _GoalsPageState extends State<GoalsPage> {
     );
   }//build
 
-  Widget fadeText() {
+  Widget _fadeText() {
     return  SizedBox(
       width: 350.0,
       child: FadeAnimatedTextKit(
@@ -50,5 +50,7 @@ class _GoalsPageState extends State<GoalsPage> {
     );
   }
 
+
+  
 
 }//_GoalsPageState

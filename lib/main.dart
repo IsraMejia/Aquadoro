@@ -1,3 +1,4 @@
+import 'package:aquadoro/pantalla_prueba.dart';
 import 'package:flutter/material.dart';
 import 'package:aquadoro/goals_page.dart';
 import 'package:aquadoro/splash_screen.dart';
@@ -18,9 +19,10 @@ class MyApp extends StatelessWidget {
       routes: {
         'splashScreen' : (BuildContext context) => SplashScreen(),
         'goalsPage'    : (BuildContext context) => GoalsPage(),
-        'pomodoroPage' : (BuildContext context) => PomodoroPage(),         
+        'pomodoroPage' : (BuildContext context) => PomodoroPage(),   
+        'pantallaPrueba' : (BuildContext context) => PantallaPrueba(),      
       },
-      initialRoute: 'splashScreen',
+      initialRoute: 'pantallaPrueba',
     );
   }
 }

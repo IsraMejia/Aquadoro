@@ -23,27 +23,18 @@ class GoalCard extends StatefulWidget {
 
 class _GoalCardState extends State<GoalCard> {
   
-  final AnimationController animationController;
-
   @override
   Widget build(BuildContext context) {
     double anchoPantalla = MediaQuery.of(context).size.width;
 
-    return SizeTransition(
-      sizeFactor: 
-      CurvedAnimation(
-        parent: animationController,
-        curve: Curves.easeInOut
-      ),
-      axisAlignment: 0.0,
-      child: Container(
+    return  Container(
         margin: EdgeInsets.all(10.0),
         child: Row(
           
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container( //entrada de la actividad
-            width: anchoPantalla*0.4,
+            width: anchoPantalla*0.3,
             padding: EdgeInsets.symmetric( horizontal: 5.0),
             child: _actividadInput(),
           ),
@@ -67,15 +58,16 @@ class _GoalCardState extends State<GoalCard> {
 
          ],
         ),
-      ),
-    );
+      ); 
   }
 
   Widget _actividadInput(){
      return TextFormField(
+       cursorWidth: 10.0,
       autofocus: true,
       // controller: _textController,
       decoration: InputDecoration(
+      
       hintText: 'Actividad',
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20.0),

@@ -7,10 +7,10 @@ class GoalsPage extends StatefulWidget {
   _GoalsPageState createState() => _GoalsPageState();
 }//GoalsPage
 
-class _GoalsPageState extends State<GoalsPage> {
+class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 
   final List<GoalCard> _metas =[];
-
+  
 
   @override
   Widget build(BuildContext context) {
@@ -18,24 +18,33 @@ class _GoalsPageState extends State<GoalsPage> {
       appBar: AppBar(
         title: _fadeText(),
       ),
-      body:SingleChildScrollView( //Para que no haya problema con el teclado
-          child: ListView.builder(
+      body: Column(
+        children: [
+       
+          Flexible(
+            child:  ListView.builder(
             itemBuilder: (_ , int index) => _metas[index],
-            // reverse: true,
+              // reverse: true,
             padding: EdgeInsets.all(5.0),
             itemCount: _metas.length,
-          ), 
-      ),
-      floatingActionButton: FloatingActionButton(
+           ),
+          ),
+        
+      
+       FloatingActionButton(
+        
         onPressed: (){
-
+          _agregarCard();
         },
         child: Icon(
          Icons.add_circle_outline ,
          color: Color.fromRGBO(42, 229, 186, 0.9),
         ),
       ),
+     ],
+      )
     );
+
   }//build
 
   Widget _fadeText() {
@@ -58,12 +67,24 @@ class _GoalsPageState extends State<GoalsPage> {
             fontWeight: FontWeight.normal
         ),
         textAlign: TextAlign.center,
-        alignment: AlignmentDirectional.center // or Alignment.topLeft
+        alignment: AlignmentDirectional.center, // or Alignment.topLeft
       ),
     );
   }
 
+  void _agregarCard(){
+    // final animacionCards = new AnimationController(
+    //     duration: const Duration(milliseconds: 500),
+    //     vsync: this,
+    // );
+    GoalCard meta = new GoalCard();
 
+    setState(() {
+      _metas.insert(0, meta);
+    });
+    // meta.animationController.forward();
+    print('se creo tarjeta de meta');
+  }
   
-
+ 
 }//_GoalsPageState

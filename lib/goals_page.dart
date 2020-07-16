@@ -74,7 +74,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 
   void _agregarCard(){
     final animacionCards = new AnimationController(
-        duration: const Duration(milliseconds: 250),
+        duration: const Duration(milliseconds: 260),
         
         vsync: this, //necesario para el tricker, impulsa la animacion hacia delante
     );

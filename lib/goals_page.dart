@@ -53,7 +53,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
     return  SizedBox(
       width: 350.0,
       child: FadeAnimatedTextKit(
-        repeatForever: true,
+        repeatForever: false,
         onTap: () {
             print("Tap Event");
           },
@@ -77,7 +77,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 
   void _agregarCard(){
     final animacionCards = new AnimationController(
-        duration: const Duration(milliseconds: 500), 
+        duration: const Duration(milliseconds: 260),
         vsync: this, //necesario para el tricker, impulsa la animacion hacia delante
     );
     GoalCard meta = new GoalCard(
@@ -85,8 +85,9 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
     );
 
     setState(() {
-      _metas.insert(0, meta);
-      
+
+      _metas.insert(_metas.length, meta);
+
     });
     meta.animationController.forward();
     // print('se creo tarjeta de meta');

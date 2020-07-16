@@ -27,8 +27,9 @@ class GoalCard extends StatelessWidget{
     return SizeTransition(
       sizeFactor: CurvedAnimation(
         parent:  animationController , 
-        curve: Curves.linear ),
-      axisAlignment: 0,
+        curve: Curves.fastOutSlowIn),
+      axisAlignment: 0.0,
+      
       axis: Axis.vertical ,
       child: Container(
         decoration: BoxDecoration(

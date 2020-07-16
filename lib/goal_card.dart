@@ -18,18 +18,19 @@ class GoalCard extends StatelessWidget{
   int tConcentracion = 25;
   int tDescanso = 5;
   final AnimationController animationController;  //para la animacion al agregar cada tarjeta
-  double opacityLevel = 1.0;
+  
   
   @override
   Widget build(BuildContext context) {
     double anchoPantalla = MediaQuery.of(context).size.width;
 
-    return AnimatedOpacity(
-        opacity: opacityLevel,
-        duration: Duration(milliseconds: 500),
-        child: 
+    return SizeTransition(
+        sizeFactor: CurvedAnimation(
+          parent: animationController, 
+          curve: Curves.linear ),
+        axisAlignment: 0.0, 
         
-           Container(
+        child:  Container(
         decoration: BoxDecoration(
           color: Colors.blueGrey[50],
           borderRadius: BorderRadius.circular(15.0) ,

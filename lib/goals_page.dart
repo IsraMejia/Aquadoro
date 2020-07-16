@@ -74,6 +74,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
     );
   }
 
+
   void _agregarCard(){
     final animacionCards = new AnimationController(
         duration: const Duration(milliseconds: 500), 
@@ -85,10 +86,13 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 
     setState(() {
       _metas.insert(0, meta);
+      
     });
     meta.animationController.forward();
     // print('se creo tarjeta de meta');
     //  _focusNode.requestFocus(); 
+
+  
   }
 
 

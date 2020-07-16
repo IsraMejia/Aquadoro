@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:aquadoro/goal_card.dart';
+// import 'package:aquadoro/goal_card.dart';
 
 class PantallaPrueba extends StatelessWidget {
   
@@ -52,9 +52,9 @@ class PantallaPrueba extends StatelessWidget {
         Container(
         decoration: BoxDecoration(
           color: Colors.blueGrey[50],
-          borderRadius: BorderRadius.circular(10.0) ,
+          borderRadius: BorderRadius.circular(8.0) ,
         ),  
-        margin: EdgeInsets.all(20.0),
+        margin: EdgeInsets.all(15.0),
         child: Row(
           
         crossAxisAlignment: CrossAxisAlignment.start ,
@@ -81,7 +81,7 @@ class PantallaPrueba extends StatelessWidget {
               child: FlatButton(
                onPressed: (){},
                child: Icon(
-                Icons.timer ,
+                Icons.arrow_forward_ios ,
                 size :anchoPantalla*0.1, 
                 color: Colors.cyan[700],
                ),
@@ -112,26 +112,14 @@ class PantallaPrueba extends StatelessWidget {
     Widget _actividadInput(){
      return TextFormField(
       decoration: InputDecoration( 
-      // hintText: 'Actividad',
-      // hintStyle: TextStyle(fontSize: 14.0),
       labelText: 'Actividad',
-      labelStyle: TextStyle(fontSize: 13.0 ),
-      
+      labelStyle: TextStyle(fontSize: 13.0 ), 
       ),
-      onSaved : (actividad){
-        print(actividad);
-      } 
-      // onChanged: (act){
-      //   print(act);
-      // },
-      // onEditingComplete: , //Al parecer usa lo del focus
-      
-    );
+     );
   }//_actividadInput()
 
   Widget _inputDescanso(){
     return TextFormField(
-      
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
         labelText: 'Descanso',

@@ -28,78 +28,90 @@ class _GoalCardState extends State<GoalCard> {
     double anchoPantalla = MediaQuery.of(context).size.width;
 
     return  Container(
-        margin: EdgeInsets.all(10.0),
-        child: Row(
+      decoration: BoxDecoration(
+        color: Colors.blueGrey[50],
+        borderRadius: BorderRadius.circular(15.0) ,
+      ),
+      margin: EdgeInsets.all(10.0),
+      
+      child: Row(
           
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container( //entrada de la actividad
-            width: anchoPantalla*0.3,
-            padding: EdgeInsets.symmetric( horizontal: 5.0),
-            child: _actividadInput(),
-          ),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        
+        Container( //entrada de la actividad
+          padding: EdgeInsets.only(left: 10.0),
+          width: anchoPantalla*0.45,
+          child: _actividadInput(),
+        ), 
+        
+        Spacer(),
+        
+        Container( 
+          width: anchoPantalla*0.15,
+          child: _inputConcentracion()),
+        
+        Spacer(),
 
-          Expanded(//entrada de tiempos
-            child: Row(
-              children: <Widget>[
-                _inputConcentracion(),
-                _inputDescanso()
-              ],
-            )
-          ),
+        Container( 
+          width: anchoPantalla*0.15,
+          child: _inputDescanso()),
           
-          Container(//boton para iniciar el pomodoro
-            width: anchoPantalla*0.15,
+        Container(//boton para iniciar el pomodoro
+          width: anchoPantalla*0.135,
+          child: Align(
+            alignment: Alignment.topLeft ,
             child: FlatButton(
               onPressed: (){},
-               child: Icon(Icons.chevron_right),
-            ),
-          ),
-
-         ],
+              child: Icon(
+                Icons.arrow_forward_ios ,
+                size :anchoPantalla*0.1, 
+                color: Colors.cyan[700],
+              ),
+            ) ,
+          )
         ),
-      ); 
+      ],
+      ),
+    ); 
   }
 
   Widget _actividadInput(){
      return TextFormField(
-       cursorWidth: 10.0,
-      autofocus: true,
-      // controller: _textController,
-      decoration: InputDecoration(
-      
-      hintText: 'Actividad',
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ), 
+      decoration: InputDecoration( 
+      labelText: 'Actividad',
+      labelStyle: TextStyle(fontSize: 13.0 ), 
       ),
-      onSaved : (actividad)=> widget.actividad = actividad
-      
-    );
+     );
   }//_actividadInput()
+
+  Widget _inputConcentracion(){
+    return TextFormField( 
+      keyboardType: TextInputType.numberWithOptions(decimal: true),
+      decoration: InputDecoration(
+        labelText: 'Enfoque',
+        hintText: 'minutos' ,
+        hintStyle: TextStyle(fontSize: 10.0),
+        labelStyle: TextStyle(fontSize: 13.0 ),
+      ),
+      // onSaved : (tiempoConcentracion)=> widget.tConcentracion  = double.parse(tiempoConcentracion) as int ,
+    );
+  }
 
   Widget _inputDescanso(){
     return TextFormField(
-       initialValue:  'Descanso',
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
-        labelText: "minutos",
+        labelText: 'Descanso',
+        labelStyle: TextStyle(fontSize: 13.0 ),
+        hintText: 'minutos' ,
+        hintStyle: TextStyle(fontSize: 10.0),
       ),
-      onSaved : (tiempoDescanso)=> widget.tDescanso  = double.parse(tiempoDescanso) as int ,
-    );
-  }
-
-  Widget _inputConcentracion(){
-    return TextFormField(
-       initialValue:  'Concentracion',
-      keyboardType: TextInputType.numberWithOptions(decimal: true),
-      decoration: InputDecoration(
-        labelText: "minutos",
-      ),
-      onSaved : (tiempoConcentracion)=> widget.tConcentracion  = double.parse(tiempoConcentracion) as int ,
+      // onSaved : (tiempoDescanso)=> widget.tDescanso  = double.parse(tiempoDescanso) as int ,
     );
   }
 
 
+ 
   
 }

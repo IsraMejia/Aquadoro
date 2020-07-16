@@ -24,7 +24,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
           Flexible(
             child:  ListView.builder(
             itemBuilder: (_ , int index) => _metas[index],
-            reverse: true,
+            reverse: true,//permite que se vea la animacion bonita como en chat
             // padding: EdgeInsets.all(2.0),
             itemCount: _metas.length,
            ),

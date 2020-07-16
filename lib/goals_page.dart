@@ -8,7 +8,7 @@ class GoalsPage extends StatefulWidget {
 }//GoalsPage
 
 class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
-
+//TickerProviderStateMixin Nos servira para agregarle animaciones a las tarjetas cuando son agregadas
   final List<GoalCard> _metas =[];
   
 
@@ -24,8 +24,8 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
           Flexible(
             child:  ListView.builder(
             itemBuilder: (_ , int index) => _metas[index],
-              // reverse: true,
-            padding: EdgeInsets.all(5.0),
+            reverse: true,
+            // padding: EdgeInsets.all(2.0),
             itemCount: _metas.length,
            ),
           ),
@@ -73,17 +73,28 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
   }
 
   void _agregarCard(){
-    // final animacionCards = new AnimationController(
-    //     duration: const Duration(milliseconds: 500),
-    //     vsync: this,
-    // );
-    GoalCard meta = new GoalCard();
+    final animacionCards = new AnimationController(
+        duration: const Duration(milliseconds: 800),
+        
+        vsync: this, //necesario para el tricker, impulsa la animacion hacia delante
+    );
+    GoalCard meta = new GoalCard(
+      animationController : animacionCards,
+    );
 
     setState(() {
       _metas.insert(0, meta);
     });
-    // meta.animationController.forward();
-    print('se creo tarjeta de meta');
+    meta.animationController.forward();
+    // print('se creo tarjeta de meta');
+  }
+
+
+  @override
+  void dispose(){//Liberar recuros de memoria que se usa en las animaicones
+    for(GoalCard meta in _metas)
+      meta.animationController.dispose();
+    super.dispose();
   }
   
  

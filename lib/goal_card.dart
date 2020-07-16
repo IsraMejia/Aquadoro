@@ -5,73 +5,77 @@ import 'package:flutter/material.dart';
  * usare una logica similar a la del chatbot y para agregar una nueva tarjeta
  * se hara uso de un boton en el goals page
  */
-class GoalCard extends StatefulWidget {
+class GoalCard extends StatelessWidget{
 
   GoalCard({
     this.actividad,
     this.tConcentracion,
     this.tDescanso,
+    this.animationController,
   });
 
   String actividad = 'Actividad';
   int tConcentracion = 25;
   int tDescanso = 5;
-
-  @override
-  _GoalCardState createState() => _GoalCardState();
-}
-
-class _GoalCardState extends State<GoalCard> {
+  final AnimationController animationController;  //para la animacion al agregar cada tarjeta
+  
   
   @override
   Widget build(BuildContext context) {
     double anchoPantalla = MediaQuery.of(context).size.width;
 
-    return  Container(
-      decoration: BoxDecoration(
-        color: Colors.blueGrey[50],
-        borderRadius: BorderRadius.circular(15.0) ,
-      ),
-      margin: EdgeInsets.all(10.0),
-      
-      child: Row(
-          
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        
-        Container( //entrada de la actividad
-          padding: EdgeInsets.only(left: 10.0),
-          width: anchoPantalla*0.45,
-          child: _actividadInput(),
-        ), 
-        
-        Spacer(),
-        
-        Container( 
-          width: anchoPantalla*0.15,
-          child: _inputConcentracion()),
-        
-        Spacer(),
-
-        Container( 
-          width: anchoPantalla*0.15,
-          child: _inputDescanso()),
-          
-        Container(//boton para iniciar el pomodoro
-          width: anchoPantalla*0.135,
-          child: Align(
-            alignment: Alignment.topLeft ,
-            child: FlatButton(
-              onPressed: (){},
-              child: Icon(
-                Icons.arrow_forward_ios ,
-                size :anchoPantalla*0.1, 
-                color: Colors.cyan[700],
-              ),
-            ) ,
-          )
+    return SizeTransition(
+      sizeFactor: CurvedAnimation(
+        parent:  animationController , 
+        curve: Curves.linear ),
+      axisAlignment: 0,
+      axis: Axis.vertical ,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.blueGrey[50],
+          borderRadius: BorderRadius.circular(15.0) ,
         ),
-      ],
+        margin: EdgeInsets.all(10.0),
+        
+        child: Row(
+            
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          
+          Container( //entrada de la actividad
+            padding: EdgeInsets.only(left: 10.0, bottom: 13.0),
+            width: anchoPantalla*0.45,
+            child: _actividadInput(),
+          ), 
+          
+          Spacer(),
+          
+          Container( 
+            width: anchoPantalla*0.15,
+            child: _inputConcentracion()),
+          
+          Spacer(),
+
+          Container( 
+            width: anchoPantalla*0.15,
+            child: _inputDescanso()),
+            
+          Container(//boton para iniciar el pomodoro
+            width: anchoPantalla*0.135,
+            child: Align(
+              alignment: Alignment.topLeft ,
+              child: FlatButton(
+                onPressed: (){},
+                child: Icon(
+                  Icons.arrow_forward_ios ,
+                  size :anchoPantalla*0.1, 
+                  color: Colors.cyan[700],
+                ),
+              ) ,
+            )
+          ),
+        ],
+        ),
       ),
     ); 
   }
@@ -114,4 +118,5 @@ class _GoalCardState extends State<GoalCard> {
 
  
   
+
 }

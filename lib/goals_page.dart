@@ -53,7 +53,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
     return  SizedBox(
       width: 350.0,
       child: FadeAnimatedTextKit(
-        repeatForever: false,
+        repeatForever: true,
         onTap: () {
             print("Tap Event");
           },

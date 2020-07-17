@@ -10,11 +10,12 @@ class GoalsPage extends StatefulWidget {
 class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 //TickerProviderStateMixin Nos servira para agregarle animaciones a las tarjetas cuando son agregadas
   final List<GoalCard> _metas =[];
+  int index;
   // final FocusNode _focusNode = new FocusNode( );
 
   @override
   Widget build(BuildContext context) { 
-    
+  
     return Scaffold(
       appBar: AppBar(
         title: _fadeText(),
@@ -24,30 +25,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
        
           Flexible(
             child:  ListView.builder(
-            itemBuilder: (_ , int index){
-              return Dismissible(
-                key: new ObjectKey( _metas[index]  )  , 
-                child: _metas[index],
-
-                background: Container(
-                  margin: EdgeInsets.all(10.0),
-                  padding: EdgeInsets.only(left:15.0),
-                  alignment: AlignmentDirectional.centerStart,
-                  color: Colors.deepOrange[700],
-                  child: Icon(Icons.delete_outline),
-                ),
-
-                onDismissed: (direccion){  
-                  
-                  setState(() {
-                  _metas.removeAt(index);
-
-                  
-                    
-                  });
-                },
-              );
-            }, //=> _metas[index],
+            itemBuilder: (_ ,  index) => /*_metas[index]*/ _agregarCard(_metas[index]) ,
             reverse: false,//permite que se vea la animacion bonita como en chat
             // padding: EdgeInsets.all(2.0),
             itemCount: _metas.length,
@@ -60,7 +38,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
        FloatingActionButton(
         
         onPressed: (){
-          _agregarCard();
+          _agregarCard(); 
         },
         child: Icon(
          Icons.add_circle_outline ,
@@ -99,7 +77,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
   }
 
 
-  void _agregarCard(){
+  Widget _agregarCard( Widget indiceMeta ){
     final animacionCards = new AnimationController(
         duration: const Duration(milliseconds: 260),
         vsync: this, //necesario para el tricker, impulsa la animacion hacia delante
@@ -108,13 +86,31 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
       animationController : animacionCards,
       // actividad: 'Correr',
     );
+    _metas.insert(_metas.length, meta);
 
-    setState(() {
+    // setState(() {
 
-      _metas.insert(_metas.length, meta);
+    //   _metas.insert(_metas.length, meta);
 
-    });
+    // });
+
     meta.animationController.forward();
+
+    return Dismissible(
+      key: UniqueKey() ,
+      child: meta,
+      onDismissed: ( direccion ){
+        _metas.removeAt(indiceMeta);
+      },
+      background: Container(
+          alignment: AlignmentDirectional.centerStart,
+          color: Colors.deepOrange[800],
+          child: Icon(Icons.delete_outline),
+      ),
+    );
+
+    
+    
     // print('se creo tarjeta de meta');
     //  _focusNode.requestFocus(); 
 

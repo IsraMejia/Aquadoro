@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         'pomodoroPage' : (BuildContext context) => PomodoroPage(),   
         'pantallaPrueba' : (BuildContext context) => PantallaPrueba(),      
       },
-      initialRoute: 'splashScreen',
+      initialRoute: 'goalsPage',
     );
   }
 }

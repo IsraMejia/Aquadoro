@@ -5,28 +5,31 @@ import 'package:flutter/material.dart';
  * usare una logica similar a la del chatbot y para agregar una nueva tarjeta
  * se hara uso de un boton en el goals page
  */
-class GoalCard extends StatelessWidget{
+class GoalCard extends StatefulWidget{
 
   GoalCard({
     this.actividad,
     this.tConcentracion,
-    this.tDescanso,
+    this.tDescanso,  
     this.animationController,
   });
 
   String actividad = 'Actividad';
-  int tConcentracion = 25;
-  int tDescanso = 5;
-  final AnimationController animationController;  //para la animacion al agregar cada tarjeta
-  
-  
+  double tConcentracion = 25;
+  double tDescanso = 5;
+  final AnimationController animationController;  
+  @override
+  _GoalCardState createState() => _GoalCardState();
+}
+
+class _GoalCardState extends State<GoalCard> {
   @override
   Widget build(BuildContext context) {
     double anchoPantalla = MediaQuery.of(context).size.width;
 
     return SizeTransition(
         sizeFactor: CurvedAnimation(
-          parent: animationController, 
+          parent: widget.animationController, 
           curve: Curves.decelerate ),
         axisAlignment: 0.0, 
         
@@ -62,8 +65,8 @@ class GoalCard extends StatelessWidget{
             
           Container(//boton para iniciar el pomodoro
             width: anchoPantalla*0.135,
-            child: Align(
-              alignment: Alignment.topLeft ,
+            child: Container(
+              alignment: AlignmentDirectional.center ,
               child: FlatButton(
                 onPressed: (){},
                 child: Icon(
@@ -86,9 +89,15 @@ class GoalCard extends StatelessWidget{
       labelText: 'Actividad',
       labelStyle: TextStyle(fontSize: 13.0 ), 
       ),
+      onChanged :(activity){
+        setState(() {
+          widget.actividad = activity;
+          print(widget.actividad);
+        });
+      },
+      // (activity) => widget.actividad = activity,
      );
-  }//_actividadInput()
-
+  }
   Widget _inputConcentracion(){
     return TextFormField( 
       keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -98,7 +107,15 @@ class GoalCard extends StatelessWidget{
         hintStyle: TextStyle(fontSize: 10.0),
         labelStyle: TextStyle(fontSize: 13.0 ),
       ),
-      // onSaved : (tiempoConcentracion)=> widget.tConcentracion  = double.parse(tiempoConcentracion) as int ,
+      onChanged : (tiempoConcentracion){
+        setState(() {
+          print("Concentracion $tiempoConcentracion");
+          widget.tConcentracion  = double.parse(tiempoConcentracion)  ;
+          print(widget.tConcentracion.toInt() );
+        });
+      }
+      
+      // widget.tConcentracion  = double.parse(tiempoConcentracion) as int ,
     );
   }
 
@@ -111,12 +128,11 @@ class GoalCard extends StatelessWidget{
         hintText: 'minutos' ,
         hintStyle: TextStyle(fontSize: 10.0),
       ),
-      // onSaved : (tiempoDescanso)=> widget.tDescanso  = double.parse(tiempoDescanso) as int ,
+       onChanged : (tiempoDescanso){
+         widget.tDescanso  = double.parse(tiempoDescanso) ;
+         print(widget.tDescanso);
+       }
+       // widget.tDescanso  = double.parse(tiempoDescanso) as int ,
     );
   }
-
-
- 
-  
-
 }

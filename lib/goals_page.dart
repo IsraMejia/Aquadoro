@@ -13,7 +13,8 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
   // final FocusNode _focusNode = new FocusNode( );
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
+    
     return Scaffold(
       appBar: AppBar(
         title: _fadeText(),
@@ -23,7 +24,30 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
        
           Flexible(
             child:  ListView.builder(
-            itemBuilder: (_ , int index) => _metas[index],
+            itemBuilder: (_ , int index){
+              return Dismissible(
+                key: new ObjectKey( _metas[index]  )  , 
+                child: _metas[index],
+
+                background: Container(
+                  margin: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.only(left:15.0),
+                  alignment: AlignmentDirectional.centerStart,
+                  color: Colors.deepOrange[700],
+                  child: Icon(Icons.delete_outline),
+                ),
+
+                onDismissed: (direccion){  
+                  
+                  setState(() {
+                  _metas.removeAt(index);
+
+                  
+                    
+                  });
+                },
+              );
+            }, //=> _metas[index],
             reverse: false,//permite que se vea la animacion bonita como en chat
             // padding: EdgeInsets.all(2.0),
             itemCount: _metas.length,
@@ -82,6 +106,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
     );
     GoalCard meta = new GoalCard(
       animationController : animacionCards,
+      // actividad: 'Correr',
     );
 
     setState(() {

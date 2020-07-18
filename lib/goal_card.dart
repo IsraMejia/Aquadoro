@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'goals_page.dart';
 /**
  * Este archivo genera las tarjetas de las actividades
  * La idea es que se puedan hacer tarjetas infinitas
@@ -15,7 +16,7 @@ class GoalCard extends StatefulWidget{
   });
 
   String actividad = 'Actividad';
-  double tConcentracion = 25;
+  double tConcentracion = 27;
   double tDescanso = 5;
   final AnimationController animationController;  
   @override
@@ -27,66 +28,112 @@ class _GoalCardState extends State<GoalCard> {
   Widget build(BuildContext context) {
     double anchoPantalla = MediaQuery.of(context).size.width;
 
-    return SizeTransition(
-        sizeFactor: CurvedAnimation(
-          parent: widget.animationController, 
-          curve: Curves.decelerate ),
-        axisAlignment: 0.0, 
-        
-        child:  Container(
-        decoration: BoxDecoration(
-          color: Colors.blueGrey[50],
-          borderRadius: BorderRadius.circular(15.0) ,
-        ),
-        margin: EdgeInsets.all(10.0),
-        
-        child: Row(
-            
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          
-          Container( //entrada de la actividad
-            padding: EdgeInsets.only(left: 10.0, bottom: 13.0),
-            width: anchoPantalla*0.45,
-            child: _actividadInput(),
-          ), 
-          
-          Spacer(),
-          
-          Container( 
-            width: anchoPantalla*0.15,
-            child: _inputConcentracion()),
-          
-          Spacer(),
-
-          Container( 
-            width: anchoPantalla*0.15,
-            child: _inputDescanso()),
-            
-          Container(//boton para iniciar el pomodoro
-            width: anchoPantalla*0.135,
-            child: Container(
-              alignment: AlignmentDirectional.center ,
-              child: FlatButton(
-                onPressed: (){},
-                child: Icon(
-                  Icons.arrow_forward_ios ,
-                  size :anchoPantalla*0.1, 
-                  color: Colors.cyan[700],
-                ),
-              ) ,
-            )
+    return /* Dismissible(
+          key: Key(widget.actividad),
+          background: Container(
+            margin: EdgeInsets.all(10.0),
+            padding: EdgeInsets.only(left:15.0),
+            alignment: AlignmentDirectional.centerStart,
+            color: Colors.deepOrange[700],
+            child: Icon(Icons.delete_outline),
           ),
-        ],
+
+          onDismissed: (direccion){   
+          // setState(() {
+          // _metas.removeAt(index);
+          
+                   
+          // });
+          },
+
+          child:*/  SizeTransition(
+          sizeFactor: CurvedAnimation(
+            parent: widget.animationController, 
+            curve: Curves.decelerate ),
+          axisAlignment: 0.0, 
+          
+          child:  Container(
+          decoration: BoxDecoration(
+            color: Colors.blueGrey[50],
+            borderRadius: BorderRadius.circular(15.0) ,
+          ),
+          margin: EdgeInsets.all(10.0),
+          
+          child: Row(
+              
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            
+            Container( //entrada de la actividad
+              padding: EdgeInsets.only(left: 10.0, bottom: 13.0),
+              width: anchoPantalla*0.45,
+              child: _actividadInput(),
+            ), 
+            
+            Spacer(),
+            
+            Container( 
+              width: anchoPantalla*0.15,
+              child: _inputConcentracion()),
+            
+            Spacer(),
+
+            Container( 
+              width: anchoPantalla*0.15,
+              child: _inputDescanso()),
+              
+            Container(//boton para iniciar el pomodoro
+              width: anchoPantalla*0.135,
+              child: Container(
+                alignment: AlignmentDirectional.center ,
+                child: FlatButton(
+                  onPressed: (){},
+                  child: Icon(
+                    Icons.arrow_forward_ios ,
+                    size :anchoPantalla*0.1, 
+                    color: Colors.cyan[700],
+                  ),
+                ) ,
+              )
+            ),
+          ],
+          ),
         ),
-      ),
-    ); 
+      );
+    //); 
+  }
+
+  String initialActivity (){
+    if (widget.actividad == null) {
+      return "" ;
+    } else{
+      return "${widget.actividad.toString()}" ;
+    } 
+  }
+
+  String initialConcentracion (){
+    if (widget.actividad == null) {
+      return "" ;
+    } else{
+      return "${widget.tConcentracion.toString()}" ;
+    } 
+  }
+
+  String initialDescanso (){
+    if (widget.actividad == null) {
+      return "" ;
+    } else{
+      return "${widget.tDescanso.toString()}" ;
+    } 
   }
 
   Widget _actividadInput(){
      return TextFormField(
+      initialValue: initialActivity() /*"initial"*/ ,//
       decoration: InputDecoration( 
-      labelText: 'Actividad',
+      //helperText: 'helper',//
+      //suffixText: 'suxfix',//
+      labelText: "Actividad" ,
       labelStyle: TextStyle(fontSize: 13.0 ), 
       ),
       onChanged :(activity){
@@ -100,6 +147,7 @@ class _GoalCardState extends State<GoalCard> {
   }
   Widget _inputConcentracion(){
     return TextFormField( 
+      initialValue: initialConcentracion() ,
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
         labelText: 'Enfoque',
@@ -112,6 +160,7 @@ class _GoalCardState extends State<GoalCard> {
           print("Concentracion $tiempoConcentracion");
           widget.tConcentracion  = double.parse(tiempoConcentracion)  ;
           print(widget.tConcentracion.toInt() );
+          
         });
       }
       
@@ -121,6 +170,7 @@ class _GoalCardState extends State<GoalCard> {
 
   Widget _inputDescanso(){
     return TextFormField(
+      initialValue: initialDescanso(),
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
         labelText: 'Descanso',

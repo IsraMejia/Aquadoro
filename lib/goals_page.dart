@@ -25,8 +25,9 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
           Flexible(
             child:  ListView.builder(
             itemBuilder: (_ , int index){
+              
               return Dismissible(
-                key: new ObjectKey( _metas[index]  )  , 
+                key: new UniqueKey( )  , 
                 child: _metas[index],
 
                 background: Container(
@@ -40,14 +41,19 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
                 onDismissed: (direccion){  
                   
                   setState(() {
-                  _metas.removeAt(index);
-
-                  
+                    //  if(_metas.length > 0){
+                      print(_metas[index].actividad);
+                      //print(_metas[index+1].actividad);
+                      _metas.removeAt(index) ; 
+                      print("Despues de eliminar") ;
+                      print(_metas[index].actividad);
+                    //  }
                     
                   });
+
                 },
               );
-            }, //=> _metas[index],
+            },    // => _metas[index],
             reverse: false,//permite que se vea la animacion bonita como en chat
             // padding: EdgeInsets.all(2.0),
             itemCount: _metas.length,
@@ -64,7 +70,8 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
         },
         child: Icon(
          Icons.add_circle_outline ,
-         color: Color.fromRGBO(42, 229, 186, 0.9),
+         color: Color.fromRGBO(142, 229, 186, 0.6),
+         size: 50.0,
         ),
       ),
      ],

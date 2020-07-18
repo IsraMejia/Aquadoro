@@ -25,7 +25,38 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
        
           Flexible(
             child:  ListView.builder(
-            itemBuilder: (_ ,  index) => /*_metas[index]*/ _agregarCard(_metas[index]) ,
+              
+            itemBuilder: (_ , int index){ 
+              
+              return Dismissible(
+                key: new UniqueKey( )  , 
+                child: _metas[index],
+
+                background: Container(
+                  margin: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.only(left:15.0),
+                  alignment: AlignmentDirectional.centerStart,
+                  color: Colors.deepOrange[700],
+                  child: Icon(Icons.delete_outline),
+                ),
+
+                onDismissed: (direccion){  
+                  
+                  setState(() {
+                    //  if(_metas.length > 0){
+                      print(_metas[index].actividad);
+                      //print(_metas[index+1].actividad);
+                      _metas.removeAt(index) ; 
+                      print("Despues de eliminar") ;
+                      print(_metas[index].actividad);
+                    //  }
+                    
+                  });
+
+                },
+              );
+            },    // => _metas[index],
+
             reverse: false,//permite que se vea la animacion bonita como en chat
             // padding: EdgeInsets.all(2.0),
             itemCount: _metas.length,
@@ -42,7 +73,8 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
         },
         child: Icon(
          Icons.add_circle_outline ,
-         color: Color.fromRGBO(42, 229, 186, 0.9),
+         color: Color.fromRGBO(142, 229, 186, 0.6),
+         size: 50.0,
         ),
       ),
      ],
@@ -77,7 +109,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
   }
 
 
-  Widget _agregarCard( Widget indiceMeta ){
+  Widget _agregarCard( ){
     final animacionCards = new AnimationController(
         duration: const Duration(milliseconds: 260),
         vsync: this, //necesario para el tricker, impulsa la animacion hacia delante
@@ -86,34 +118,16 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
       animationController : animacionCards,
       // actividad: 'Correr',
     );
-    _metas.insert(_metas.length, meta);
+    
 
-    // setState(() {
+    setState(() {
 
-    //   _metas.insert(_metas.length, meta);
+      _metas.insert(_metas.length, meta);
 
-    // });
+    });
 
     meta.animationController.forward();
-
-    return Dismissible(
-      key: UniqueKey() ,
-      child: meta,
-      onDismissed: ( direccion ){
-        _metas.removeAt(indiceMeta);
-      },
-      background: Container(
-          alignment: AlignmentDirectional.centerStart,
-          color: Colors.deepOrange[800],
-          child: Icon(Icons.delete_outline),
-      ),
-    );
-
     
-    
-    // print('se creo tarjeta de meta');
-    //  _focusNode.requestFocus(); 
-
   
   }
 

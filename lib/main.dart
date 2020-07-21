@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         'goalsPage'    : (BuildContext context) => GoalsPage(),
         'pomodoroPage' : (BuildContext context) => PomodoroPage(),   
         'pantallaPrueba' : (BuildContext context) => PantallaPrueba(),  
-        'timer'          : (BuildContext context) => TimerPage(),    
+        'timer'          : (BuildContext context) => TimerHomePage(),    
       },
       initialRoute: 'timer',
     );

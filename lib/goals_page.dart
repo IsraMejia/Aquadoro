@@ -19,6 +19,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         title: _fadeText(),
+        
       ),
       body: Column(
         children: [
@@ -43,9 +44,9 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
                 onDismissed: (direccion){  
                   
                   setState(() {
-                    //  if(_metas.length > 0){
+                    
                       print(_metas[index].actividad);
-                      //print(_metas[index+1].actividad);
+                      
                       _metas.removeAt(index) ; 
                       print("Despues de eliminar") ;
                       print(_metas[index].actividad);
@@ -77,6 +78,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
          size: 50.0,
         ),
       ),
+      Divider(color: Colors.white,)
      ],
       )
     );

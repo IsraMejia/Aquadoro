@@ -20,7 +20,10 @@ class MyApp extends StatelessWidget {
         'splashScreen' : (BuildContext context) => SplashScreen(),
         'goalsPage'    : (BuildContext context) => GoalsPage(),
         'pomodoroPage' : (BuildContext context) => PomodoroPage(),   
-        'pantallaPrueba' : (BuildContext context) => PantallaPrueba(),      
+        'pantallaPrueba' : (BuildContext context) => PantallaPrueba(),
+
+
+        // 'goalsPage'    : (BuildContext context) => GoalsPage(),      
       },
       initialRoute: 'splashScreen',
     );

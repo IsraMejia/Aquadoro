@@ -17,12 +17,16 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) { 
   
     return Scaffold(
-      appBar: AppBar(
-        title: _fadeText(),
-        
-      ),
-      body: Column(
-        children: [
+      
+      body: Stack(
+        children: <Widget>[
+         fondoMetas(),
+         
+
+          Column(
+          children: [
+          
+          SafeArea(child: _fadeText() ),
        
           Flexible(
             child:  ListView.builder(
@@ -35,7 +39,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 
                 background: Container(
                   margin: EdgeInsets.all(10.0),
-                  padding: EdgeInsets.only(left:15.0),
+                  padding: EdgeInsets.only(left:10.0),
                   alignment: AlignmentDirectional.centerStart,
                   color: Colors.deepOrange[700],
                   child: Icon(Icons.delete_outline),
@@ -64,48 +68,67 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
             
            ),
           ),
-        
-        
-      
-       FloatingActionButton(
-        
-        onPressed: (){
-          _agregarCard(); 
-        },
-        child: Icon(
-         Icons.add_circle_outline ,
-         color: Color.fromRGBO(142, 229, 186, 0.6),
-         size: 50.0,
-        ),
+             
+          FloatingActionButton(
+            
+            onPressed: (){
+              _agregarCard(); 
+            },
+            child: Icon(
+            Icons.add_circle_outline ,
+            color: Colors.cyan[200] ,
+            size: 50.0,
+            ),
+          ),
+          Container(height: 10)
+        ],
+        )
+          //Colum metas Listview.builder
+ 
+        ],
       ),
-      Divider(color: Colors.white,)
-     ],
-      )
+  
     );
 
   }//build
 
+  Widget fondoMetas() {
+    return Container(
+     decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: <Color>[
+          // Colors.lightBlue[400] ,
+          Colors.cyan[700],
+          Colors.cyan[600],
+        ]
+      )
+     ),
+    );
+  } 
+
   Widget _fadeText() {
-    return  SizedBox(
-      width: 350.0,
-      child: FadeAnimatedTextKit(
-        repeatForever: true,
-        onTap: () {
-            print("Tap Event");
-          },
-        text: [
-          "¿Que es lo realmente",
-          " importante?",
-          "¿Que cosa si la haces ahora",
-          "te haria sentir mucho mejor?",
-          "Vamos a Hacerlo :)",
-        ],
-        textStyle: TextStyle(
-            fontSize: 25.0, 
-            fontWeight: FontWeight.normal
+    return  Container(
+      margin: EdgeInsets.only(left: 10.0, right: 10.0, top:12.0) ,
+      child: SizedBox(
+        width: 350.0,
+        height: 65.0,
+        child: FadeAnimatedTextKit(
+          repeatForever: true,
+          
+          text: [
+            "¿Que es lo realmente importante?",
+            "¿Que cosa si la haces ahora te haria sentir mucho mejor?",
+            "Vamos a Hacerlo :)",
+          ],
+          textStyle: TextStyle(
+              fontSize: 25.0, 
+              fontWeight: FontWeight.w600 ,
+              // fontFamily: ,
+              color: Colors.blueGrey[50],
+          ),
+          textAlign: TextAlign.center,
+          alignment: AlignmentDirectional.center, // or Alignment.topLeft
         ),
-        textAlign: TextAlign.center,
-        alignment: AlignmentDirectional.center, // or Alignment.topLeft
       ),
     );
   }

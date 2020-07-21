@@ -28,25 +28,7 @@ class _GoalCardState extends State<GoalCard> {
   Widget build(BuildContext context) {
     double anchoPantalla = MediaQuery.of(context).size.width;
 
-    return /* Dismissible(
-          key: Key(widget.actividad),
-          background: Container(
-            margin: EdgeInsets.all(10.0),
-            padding: EdgeInsets.only(left:15.0),
-            alignment: AlignmentDirectional.centerStart,
-            color: Colors.deepOrange[700],
-            child: Icon(Icons.delete_outline),
-          ),
-
-          onDismissed: (direccion){   
-          // setState(() {
-          // _metas.removeAt(index);
-          
-                   
-          // });
-          },
-
-          child:*/  SizeTransition(
+    return  SizeTransition(
           sizeFactor: CurvedAnimation(
             parent: widget.animationController, 
             curve: Curves.decelerate ),
@@ -54,7 +36,7 @@ class _GoalCardState extends State<GoalCard> {
           
           child:  Container(
           decoration: BoxDecoration(
-            color: Colors.blueGrey[50],
+            color: Color.fromRGBO(223, 255, 255   , 1) ,
             borderRadius: BorderRadius.circular(15.0) ,
           ),
           margin: EdgeInsets.all(10.0),

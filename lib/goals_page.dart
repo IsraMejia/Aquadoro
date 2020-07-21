@@ -76,7 +76,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
             },
             child: Icon(
             Icons.add_circle_outline ,
-            color: Colors.cyan[200] ,
+            color: Colors.cyan[50] ,
             size: 50.0,
             ),
           ),
@@ -98,6 +98,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
       gradient: LinearGradient(
         colors: <Color>[
           // Colors.lightBlue[400] ,
+          // Color.fromRGBO(3, 75, 135,1),
           Colors.cyan[700],
           Colors.cyan[600],
         ]
@@ -111,13 +112,14 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
       margin: EdgeInsets.only(left: 10.0, right: 10.0, top:12.0) ,
       child: SizedBox(
         width: 350.0,
-        height: 65.0,
+        height: 68.0,
         child: FadeAnimatedTextKit(
           repeatForever: true,
           
           text: [
             "¿Que es lo realmente importante?",
             "¿Que cosa si la haces ahora te haria sentir mucho mejor?",
+            "¿Que has estado dejando pendiente?",
             "Vamos a Hacerlo :)",
           ],
           textStyle: TextStyle(

@@ -6,7 +6,7 @@ class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
-Color colorFondo =Color.fromRGBO(3, 75, 135,1) ;
+Color colorFondo =Colors.cyan[700] ;
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
               
             ),
           ),
-          Divider(height: 20),
+          Container(height: 10),
           Center(
             child: SizedBox(
               width: 240.0,
@@ -46,9 +46,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 colors: [ 
                   Colors.blue[300],
-                  Colors.blueAccent,
                   Colors.lightBlue,
-                  Colors.blue[900],
+                  Colors.cyan[100],
                 ],
                 textAlign: TextAlign.center ,
                 alignment: AlignmentDirectional.center // or Alignment.topLeft

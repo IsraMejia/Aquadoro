@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
 
         // 'goalsPage'    : (BuildContext context) => GoalsPage(),      
       },
-      initialRoute: 'goalsPage',
+      initialRoute: 'splashScreen',
     );
   }
 }

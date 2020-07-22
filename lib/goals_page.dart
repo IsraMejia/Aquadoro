@@ -109,7 +109,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 
   Widget _fadeText() {
     return  Container(
-      margin: EdgeInsets.only(left: 10.0, right: 10.0, top:12.0) ,
+      margin: EdgeInsets.only(left: 10.0, right: 10.0, top:25.0) ,
       child: SizedBox(
         width: 350.0,
         height: 68.0,
@@ -127,9 +127,10 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
               fontWeight: FontWeight.w600 ,
               // fontFamily: ,
               color: Colors.blueGrey[50],
+              
           ),
-          textAlign: TextAlign.center,
-          alignment: AlignmentDirectional.center, // or Alignment.topLeft
+          textAlign: TextAlign.center ,
+          alignment: AlignmentDirectional.centerEnd// or Alignment.topLeft
         ),
       ),
     );
@@ -138,7 +139,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 
   Widget _agregarCard( ){
     final animacionCards = new AnimationController(
-        duration: const Duration(milliseconds: 260),
+        duration: const Duration(milliseconds: 660),
         vsync: this, //necesario para el tricker, impulsa la animacion hacia delante
     );
     GoalCard meta = new GoalCard(

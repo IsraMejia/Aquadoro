@@ -1,4 +1,5 @@
 import 'package:aquadoro/pantalla_prueba.dart';
+import 'package:aquadoro/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:aquadoro/goals_page.dart';
 import 'package:aquadoro/splash_screen.dart';
@@ -20,12 +21,11 @@ class MyApp extends StatelessWidget {
         'splashScreen' : (BuildContext context) => SplashScreen(),
         'goalsPage'    : (BuildContext context) => GoalsPage(),
         'pomodoroPage' : (BuildContext context) => PomodoroPage(),   
-        'pantallaPrueba' : (BuildContext context) => PantallaPrueba(),
+        'pantallaPrueba' : (BuildContext context) => PantallaPrueba(),  
+        'timer'          : (BuildContext context) => TimerHomePage(),      
 
-
-        // 'goalsPage'    : (BuildContext context) => GoalsPage(),      
       },
-      initialRoute: 'splashScreen',
+      initialRoute: 'timer',
     );
   }
 }

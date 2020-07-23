@@ -16,6 +16,8 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          
+          /*
           Container(
             height: 500,
             width: 500,
@@ -27,6 +29,35 @@ class _SplashScreenState extends State<SplashScreen> {
               
             ),
           ),
+          */
+          Container(
+            height: 250,
+            width: 250,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/Acuadoro.png'),
+                fit: BoxFit.cover
+              ),
+            ),
+          ),
+
+/*
+Container(
+      height: 120.0,
+      width: 120.0,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(
+              'assets/assets/alucard.jpg'),
+          fit: BoxFit.fill,
+        ),
+        shape: BoxShape.circle,
+      ),
+    )
+ */
+
+
+
           Container(height: 10),
           Center(
             child: SizedBox(

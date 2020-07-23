@@ -31,7 +31,8 @@ class _GoalCardState extends State<GoalCard> {
     return  SizeTransition(
           sizeFactor: CurvedAnimation(
             parent: widget.animationController, 
-            curve: Curves.decelerate ),
+            curve: Curves.linear 
+            ),
           axisAlignment: 0.0, 
           
           child:  Container(
@@ -95,7 +96,7 @@ class _GoalCardState extends State<GoalCard> {
 
   String initialConcentracion (){
     if (widget.actividad == null) {
-      return "" ;
+      return " " ;
     } else{
       return "${widget.tConcentracion.toString()}" ;
     } 
@@ -103,7 +104,7 @@ class _GoalCardState extends State<GoalCard> {
 
   String initialDescanso (){
     if (widget.actividad == null) {
-      return "" ;
+      return " " ;
     } else{
       return "${widget.tDescanso.toString()}" ;
     } 

@@ -26,7 +26,9 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
           Column(
           children: [
           
-          SafeArea(child: _fadeText() ),
+          SafeArea(child: _fadeText() 
+            //Text('¿Qué es lo realmente importante?')
+          ),
        
           Flexible(
             child:  ListView.builder(
@@ -109,28 +111,27 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 
   Widget _fadeText() {
     return  Container(
-      margin: EdgeInsets.only(left: 10.0, right: 10.0, top:25.0) ,
+      margin: EdgeInsets.only(left: 10.0, right: 10.0, top:30.0) ,
       child: SizedBox(
         width: 350.0,
-        height: 68.0,
+        height: 65.0,
         child: FadeAnimatedTextKit(
           repeatForever: true,
           
           text: [
             "¿Que es lo realmente importante?",
-            "¿Que cosa si la haces ahora te haria sentir mucho mejor?",
-            "¿Que has estado dejando pendiente?",
             "Vamos a Hacerlo :)",
+            "¿Que has estado dejando pendiente?",
           ],
           textStyle: TextStyle(
-              fontSize: 25.0, 
+              fontSize: 29.0, 
               fontWeight: FontWeight.w600 ,
               // fontFamily: ,
               color: Colors.blueGrey[50],
               
           ),
           textAlign: TextAlign.center ,
-          alignment: AlignmentDirectional.centerEnd// or Alignment.topLeft
+          alignment: AlignmentDirectional.bottomCenter// or Alignment.topLeft
         ),
       ),
     );
@@ -139,7 +140,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 
   Widget _agregarCard( ){
     final animacionCards = new AnimationController(
-        duration: const Duration(milliseconds: 660),
+        duration: const Duration(milliseconds: 700),
         vsync: this, //necesario para el tricker, impulsa la animacion hacia delante
     );
     GoalCard meta = new GoalCard(

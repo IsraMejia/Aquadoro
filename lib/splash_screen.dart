@@ -71,7 +71,7 @@ Container(
                   "Acuadoro"
                 ],
                 textStyle: TextStyle(
-                    fontSize: 50.0, 
+                    fontSize: 45.0, 
                     // fontFamily: "Horizon"
                     fontWeight: FontWeight.bold,
                 ),

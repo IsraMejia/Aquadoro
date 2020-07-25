@@ -8,16 +8,14 @@ import 'goals_page.dart';
  */
 class GoalCard extends StatefulWidget{
 
-  GoalCard({
-    this.actividad,
-    this.tConcentracion,
-    this.tDescanso,  
+  GoalCard({  
     this.animationController,
   });
 
-  String actividad = 'Actividad';
-  double tConcentracion = 27;
-  double tDescanso = 5;
+  String actividad ;
+  int tConcentracion;
+  int tDescanso;
+
   final AnimationController animationController;  
   @override
   _GoalCardState createState() => _GoalCardState();
@@ -87,45 +85,43 @@ class _GoalCardState extends State<GoalCard> {
   }
 
   String initialActivity (){
-    if (widget.actividad == null) {
-      return "" ;
+    if (widget.actividad == null) { 
+      return " " ;
     } else{
       return "${widget.actividad.toString()}" ;
     } 
   }
 
   String initialConcentracion (){
-    if (widget.actividad == null) {
+    if (widget.tConcentracion == null) {
       return " " ;
     } else{
-      return "${widget.tConcentracion.toString()}" ;
+      return "${widget.tConcentracion}" ;
     } 
   }
 
   String initialDescanso (){
-    if (widget.actividad == null) {
-      return " " ;
-    } else{
-      return "${widget.tDescanso.toString()}" ;
-    } 
-  }
+    if (widget.tDescanso == null) {
+       return " " ;
+    }else{
+      return "${widget.tDescanso}" ;
+      }
+  } 
+  
 
   Widget _actividadInput(){
      return TextFormField(
       initialValue: initialActivity() /*"initial"*/ ,//
       decoration: InputDecoration( 
-      //helperText: 'helper',//
-      //suffixText: 'suxfix',//
       labelText: "Actividad" ,
       labelStyle: TextStyle(fontSize: 13.0 ), 
       ),
       onChanged :(activity){
         setState(() {
           widget.actividad = activity;
-          print(widget.actividad);
+          print("Actividad :${widget.actividad}");
         });
       },
-      // (activity) => widget.actividad = activity,
      );
   }
   Widget _inputConcentracion(){
@@ -134,20 +130,14 @@ class _GoalCardState extends State<GoalCard> {
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
         labelText: 'Enfoque',
-        hintText: 'minutos' ,
-        hintStyle: TextStyle(fontSize: 10.0),
         labelStyle: TextStyle(fontSize: 13.0 ),
       ),
       onChanged : (tiempoConcentracion){
         setState(() {
-          print("Concentracion $tiempoConcentracion");
-          widget.tConcentracion  = double.parse(tiempoConcentracion)  ;
-          print(widget.tConcentracion.toInt() );
-          
+          widget.tConcentracion  = (double.parse(tiempoConcentracion)).toInt();
+          print("Tiempo de concentracion $tiempoConcentracion");
         });
       }
-      
-      // widget.tConcentracion  = double.parse(tiempoConcentracion) as int ,
     );
   }
 
@@ -158,14 +148,11 @@ class _GoalCardState extends State<GoalCard> {
       decoration: InputDecoration(
         labelText: 'Descanso',
         labelStyle: TextStyle(fontSize: 13.0 ),
-        hintText: 'minutos' ,
-        hintStyle: TextStyle(fontSize: 10.0),
       ),
        onChanged : (tiempoDescanso){
-         widget.tDescanso  = double.parse(tiempoDescanso) ;
-         print(widget.tDescanso);
+         widget.tDescanso  = (double.parse(tiempoDescanso)).toInt() ;
+         print("Tiempo de Descanso $tiempoDescanso");
        }
-       // widget.tDescanso  = double.parse(tiempoDescanso) as int ,
     );
   }
 }

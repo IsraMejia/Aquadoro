@@ -1,5 +1,4 @@
 
-import 'package:aquadoro/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:aquadoro/goals_page.dart';
 import 'package:aquadoro/pomodoro_page.dart';
@@ -20,8 +19,7 @@ class MyApp extends StatelessWidget {
         'goalsPage'       : (BuildContext context) => GoalsPage(),
         'pomodoroPage'    : (BuildContext context) => PomodoroPage(),   
         'pantallaDeCarga' : (BuildContext context) => PantallaDeCarga(), 
-        'timer'           : (BuildContext context) => TimerHomePage(),      
-
+ 
       },
       
       initialRoute: 'pomodoroPage',

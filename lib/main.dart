@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
  
       },
       
-      initialRoute: 'pomodoroPage',
+      initialRoute: 'pantallaDeCarga',
     );
   }
 }

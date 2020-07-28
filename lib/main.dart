@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:aquadoro/goals_page.dart';
-import 'package:aquadoro/splash_screen.dart';
 import 'package:aquadoro/pomodoro_page.dart';
 import 'package:aquadoro/pantalla_carga.dart';
  

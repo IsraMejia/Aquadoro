@@ -140,7 +140,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 
   Widget _agregarCard( ){
     final animacionCards = new AnimationController(
-        duration: const Duration(milliseconds: 700),
+        duration: const Duration(milliseconds: 1000),
         vsync: this, //necesario para el tricker, impulsa la animacion hacia delante
     );
     GoalCard meta = new GoalCard(

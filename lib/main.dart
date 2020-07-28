@@ -1,4 +1,5 @@
 
+import 'package:aquadoro/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:aquadoro/goals_page.dart';
 import 'package:aquadoro/pomodoro_page.dart';
@@ -15,16 +16,15 @@ class MyApp extends StatelessWidget {
       theme:ThemeData(
         primaryColor: Colors.blue[800],
       ),
-      routes: {
-        
-        'goalsPage'    : (BuildContext context) => GoalsPage(),
-        'pomodoroPage' : (BuildContext context) => PomodoroPage(),   
-        'pantallaDeCarga' : (BuildContext context) => PantallaDeCarga(),
+      routes: {      
+        'goalsPage'       : (BuildContext context) => GoalsPage(),
+        'pomodoroPage'    : (BuildContext context) => PomodoroPage(),   
+        'pantallaDeCarga' : (BuildContext context) => PantallaDeCarga(), 
+        'timer'           : (BuildContext context) => TimerHomePage(),      
 
-
-        // 'goalsPage'    : (BuildContext context) => GoalsPage(),      
       },
-      initialRoute: 'pantallaDeCarga' ,
+      
+      initialRoute: 'pomodoroPage',
     );
   }
 }

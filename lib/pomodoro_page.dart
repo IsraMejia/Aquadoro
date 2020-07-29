@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class PomodoroPage extends StatefulWidget {
+class PomodoroPage extends StatefulWidget
+ {
   // PomodoroPage({
   //   this.actividad,
   // });

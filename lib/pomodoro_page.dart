@@ -3,11 +3,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class PomodoroPage extends StatefulWidget {
+  // PomodoroPage({
+  //   this.actividad,
+  // });
+  // final String actividad;
   @override
   _PomodoroPageState createState() => _PomodoroPageState();
 }
 
 class _PomodoroPageState extends State<PomodoroPage> {
+  _PomodoroPageState({
+    this.actividad,
+  });
+
+  final String actividad;
   //Tiempo en minutos 
   int tiempoTrabajoMin = 1;
   int tiempoDescansoMin = 1;
@@ -37,6 +46,7 @@ class _PomodoroPageState extends State<PomodoroPage> {
           SafeArea(child: Center(
             child: Column(
               children: <Widget>[
+                 _nuestroApbar(),
                  SizedBox(height:150.0),
                  _estiloTexto(),
                  SizedBox(height:60.0),
@@ -54,16 +64,44 @@ class _PomodoroPageState extends State<PomodoroPage> {
 
 //____________________________Funciones a usar__________________________
 
+  Widget _nuestroApbar(){
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start ,
+      children: <Widget>[
+
+        FlatButton(
+          padding: EdgeInsets.only(right: 20),
+          onPressed: () {
+              Navigator.pop(context );
+              print("Tengo registrado :$actividad");
+          },
+          child: Icon(Icons.arrow_back_ios, size: 35, color: Colors.cyan[100])
+        ),
+
+        
+        Expanded(
+          child: Text( "Practica de Dispositivos" ,
+            style: TextStyle( fontSize: 30,fontWeight: FontWeight.bold ,color: Colors.cyan[50] ),
+          ),
+        ),
+        
+
+
+      ],
+    );
+  }
+
+
+
+
   //Formato fondo 
   Widget fondoPomodoro() {
     return Container(
      decoration: BoxDecoration(
       gradient: LinearGradient(
         colors: <Color>[
-          // Colors.lightBlue[400] ,
-          // Color.fromRGBO(3, 75, 135,1),
-          Color.fromRGBO(221, 243, 245, 1.0),
-          Color.fromRGBO(166, 220, 239, 1.0)
+          Colors.cyan[700],
+          Colors.cyan[600],
         ]
       )
      ),

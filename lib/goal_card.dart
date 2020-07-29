@@ -1,3 +1,4 @@
+import 'package:aquadoro/pomodoro_page.dart';
 import 'package:flutter/material.dart';
 import 'goals_page.dart';
 /**
@@ -16,12 +17,17 @@ class GoalCard extends StatefulWidget{
   int tConcentracion;
   int tDescanso;
 
+  // Map<String , String > datosPomodoro = { 'actividad' : "Hola" };
+
+  //Map<String, String> map = { "foo": "lorem", "bar": "ipsum" };
+
   final AnimationController animationController;  
   @override
   _GoalCardState createState() => _GoalCardState();
 }
 
 class _GoalCardState extends State<GoalCard> {
+  // Map<String , String > datosPomodoro = { 'actividad' : widget.actividad };
   @override
   Widget build(BuildContext context) {
     double anchoPantalla = MediaQuery.of(context).size.width;
@@ -68,7 +74,16 @@ class _GoalCardState extends State<GoalCard> {
               child: Container(
                 alignment: AlignmentDirectional.center ,
                 child: FlatButton(
-                  onPressed: (){},
+                  onPressed: (){
+                   Navigator.pushNamed(context, 'pomodoroPage',
+                    arguments: PomodoroPage( "Hola" );
+                   /* <String , String > {
+                       'actividad' : widget.actividad
+                    },*/
+                   );
+
+                   print("Se mando la Actividad: ${widget.actividad}");
+                  },
                   child: Icon(
                     Icons.arrow_forward_ios ,
                     size :anchoPantalla*0.1, 

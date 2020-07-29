@@ -120,7 +120,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
           
           text: [
             "¿Que es lo realmente importante?",
-            "Vamos a Hacerlo :)",
+            "Vamos a \nHacerlo :)",
             "¿Que has estado dejando pendiente?",
           ],
           textStyle: TextStyle(

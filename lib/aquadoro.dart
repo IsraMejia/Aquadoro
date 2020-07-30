@@ -28,9 +28,10 @@ class _AquadoroState extends State<Aquadoro> {
             child: Column(
               children: <Widget>[
                  _nuestroApbar( context),
-                 Expanded(child: Container()),
+                //  Expanded(child: Container()),
+                 SizedBox(height: 40,),
                  _contadorAcuadoros(),
-                 SizedBox(height: 10,),
+                 SizedBox(height: 20,),
                  _aquadoroStack(),
                  Expanded(child: Container()),
                  _botones(),

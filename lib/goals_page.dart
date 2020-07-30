@@ -21,72 +21,71 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
       body: Stack(
         children: <Widget>[
          fondoMetas(),
-         
 
-          Column(
-          children: [
-          
-          SafeArea(child: _fadeText() 
-            //Text('¿Qué es lo realmente importante?')
-          ),
+         SafeArea(
+           child: Column(
+            children: [
+            
+            _fadeText(),
        
-          Flexible(
-            child:  ListView.builder(
-              
-            itemBuilder: (_ , int index){ 
-              
-              return Dismissible(
-                key: new UniqueKey( )  , 
-                child: _metas[index],
+            Flexible(
+              child:  ListView.builder(
+                
+              itemBuilder: (_ , int index){ 
+                
+                return Dismissible(
+                  key: new UniqueKey( )  , 
+                  child: _metas[index],
 
-                background: Container(
-                  margin: EdgeInsets.all(10.0),
-                  padding: EdgeInsets.only(left:10.0),
-                  alignment: AlignmentDirectional.centerStart,
-                  color: Colors.deepOrange[700],
-                  child: Icon(Icons.delete_outline),
-                ),
+                  background: Container(
+                    margin: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.only(left:10.0),
+                    alignment: AlignmentDirectional.centerStart,
+                    color: Colors.deepOrange[700],
+                    child: Icon(Icons.delete_outline),
+                  ),
 
-                onDismissed: (direccion){  
-                  
-                  setState(() {
+                  onDismissed: (direccion){  
                     
-                      print(_metas[index].actividad);
+                    setState(() {
                       
-                      _metas.removeAt(index) ; 
-                      print("Despues de eliminar") ;
-                      print(_metas[index].actividad);
-                    //  }
-                    
-                  });
+                        print(_metas[index].actividad);
+                        
+                        _metas.removeAt(index) ; 
+                        print("Despues de eliminar") ;
+                        print(_metas[index].actividad);
+                      //  }
+                      
+                    });
 
-                },
-              );
-            },    // => _metas[index],
+                  },
+                );
+              },    // => _metas[index],
 
-            reverse: false,//permite que se vea la animacion bonita como en chat
-            // padding: EdgeInsets.all(2.0),
-            itemCount: _metas.length,
-            
-           ),
-          ),
-             
-          FloatingActionButton(
-            
-            onPressed: (){
-              _agregarCard(); 
-            },
-            child: Icon(
-            Icons.add_circle_outline ,
-            color: Colors.cyan[50] ,
-            size: 50.0,
+              reverse: false,//permite que se vea la animacion bonita como en chat
+              // padding: EdgeInsets.all(2.0),
+              itemCount: _metas.length,
+              
+             ),
             ),
-          ),
-          Container(height: 10)
-        ],
-        )
+               
+            FloatingActionButton(
+              
+              onPressed: (){
+                _agregarCard(); 
+              },
+              child: Icon(
+              Icons.add_circle_outline ,
+              color: Colors.cyan[50] ,
+              size: 50.0,
+              ),
+            ),
+            Container(height: 30)
+           ],
+        ),
+         )
           //Colum metas Listview.builder
- 
+  
         ],
       ),
   
@@ -109,10 +108,10 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 
   Widget _fadeText() {
     return  Container(
-      margin: EdgeInsets.only(left: 10.0, right: 10.0, top:30.0) ,
+      margin: EdgeInsets.only(bottom :10.0) ,
       child: SizedBox(
         width: 350.0,
-        height: 65.0,
+        height: 75.0,
         child: FadeAnimatedTextKit(
           repeatForever: true,
           
@@ -138,7 +137,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 
   Widget _agregarCard( ){
     final animacionCards = new AnimationController(
-        duration: const Duration(milliseconds: 800),
+        duration: const Duration(milliseconds: 300),
         vsync: this, //necesario para el tricker, impulsa la animacion hacia delante
     );
     GoalCard meta = new GoalCard(

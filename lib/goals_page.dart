@@ -99,10 +99,8 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
      decoration: BoxDecoration(
       gradient: LinearGradient(
         colors: <Color>[
-          // Colors.lightBlue[400] ,
-          // Color.fromRGBO(3, 75, 135,1),
-          Colors.cyan[700],
           Colors.cyan[600],
+          Colors.cyan[500],
         ]
       )
      ),

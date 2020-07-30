@@ -1,6 +1,7 @@
-import 'package:aquadoro/pomodoro_page.dart';
+
+import 'package:aquadoro/aquadoro.dart';
 import 'package:flutter/material.dart';
-import 'goals_page.dart';
+
 /**
  * Este archivo genera las tarjetas de las actividades
  * La idea es que se puedan hacer tarjetas infinitas
@@ -75,12 +76,22 @@ class _GoalCardState extends State<GoalCard> {
                 alignment: AlignmentDirectional.center ,
                 child: FlatButton(
                   onPressed: (){
-                   Navigator.pushNamed(context, 'pomodoroPage',
-                    arguments: PomodoroPage( "Hola" );
-                   /* <String , String > {
-                       'actividad' : widget.actividad
-                    },*/
-                   );
+              /*     Navigator.pushNamed(context, 'aquadoro' ,
+                    arguments: 
+                    <String , String > {
+                       'actividad' : 'salu1',
+                       'hola'      : 'salu2',
+                    },
+                   );*/
+
+                   Navigator.of(context).push(MaterialPageRoute(
+                     builder: (context) => Aquadoro(
+                       actividad: widget.actividad ,
+                       tConcentracion: widget.tConcentracion,
+                       tCDescanso: widget.tDescanso,
+                     ),
+                    )
+                   );//Navigator...push(
 
                    print("Se mando la Actividad: ${widget.actividad}");
                   },

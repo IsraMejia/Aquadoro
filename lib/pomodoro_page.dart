@@ -7,7 +7,7 @@ class PomodoroPage extends StatefulWidget
   // PomodoroPage({
   //   this.actividad,
   // });
-  // final String actividad;
+  // final String actividad; 
   @override
   _PomodoroPageState createState() => _PomodoroPageState();
 }

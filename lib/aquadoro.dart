@@ -28,9 +28,13 @@ class _AquadoroState extends State<Aquadoro> {
             child: Column(
               children: <Widget>[
                  _nuestroApbar( context),
-                 SizedBox(height: 80),
-                 
-                 
+                 Expanded(child: Container()),
+                 _contadorAcuadoros(),
+                 SizedBox(height: 10,),
+                 _aquadoroStack(),
+                 Expanded(child: Container()),
+                 _botones(),
+                 Expanded(child: Container()),
 
               ],
             ),
@@ -40,6 +44,22 @@ class _AquadoroState extends State<Aquadoro> {
       ),
     );
   }
+  
+  Widget fondoPomodoro() {
+    return Container(
+     decoration: BoxDecoration(
+      gradient: LinearGradient(
+        
+        colors: <Color>[
+          Colors.cyan[600],
+          Colors.cyan[500],
+        ]
+      )
+     ),
+    );
+  } 
+
+
   Widget _nuestroApbar(BuildContext context){
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start ,
@@ -66,23 +86,111 @@ class _AquadoroState extends State<Aquadoro> {
           ),
         ),
         
+      ],
+    );
+  }
 
+  Widget _contadorAcuadoros(){
+    return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceAround ,
+     children: <Widget>[
+
+        Icon( Icons.av_timer,
+          color: Colors.teal[50],
+          size: 45,
+        ),
+
+        Icon( Icons.av_timer,
+          color: Colors.teal[50],
+          size: 45,
+        ),
+
+        Icon( Icons.av_timer,
+          color: Colors.teal[50],
+          size: 45,
+        ),
+
+        Icon( Icons.av_timer,
+          color: Colors.teal[50],
+          size: 45,
+        ),
+
+        Icon( Icons.av_timer,
+          color: Colors.teal[50],
+          size: 45,
+        ),
+       
+     ],
+    );
+  }
+
+  Widget _aquadoroStack(){
+    return Stack(
+      children: <Widget>[
+
+        Container(
+          width: 357,
+          height: 357,
+          margin: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            image: DecorationImage(
+              image: AssetImage("assets/Acuadoro.png" ),
+              fit: BoxFit.cover
+          ),
+         ),
+        )
 
       ],
     );
   }
 
-  Widget fondoPomodoro() {
-    return Container(
-     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        
-        colors: <Color>[
-          Colors.cyan[600],
-          Colors.cyan[500],
-        ]
-      )
-     ),
+  Widget _botones(){
+    double sizebotones= 27.0;
+    return Row(
+     mainAxisAlignment: MainAxisAlignment.spaceAround ,
+     children: <Widget>[
+
+      RaisedButton(
+       shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15)
+       ),
+       color: Colors.cyan[200],
+       child: Row(
+         children: <Widget>[
+           Text('Reset',
+            style: TextStyle(fontSize: sizebotones, color: Colors.teal[900]),
+           ),
+           Icon(Icons.rotate_left , size: sizebotones, color:Colors.teal[900])
+         ],
+       ),
+       onPressed: (){       },
+      ),
+
+      OutlineButton(
+       borderSide: BorderSide(
+         width: 2, color: Colors.blue[900], style: BorderStyle.solid ),
+       shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15)
+       ),
+       child: Row(
+         children: <Widget>[
+           Text('Focus',
+            style: TextStyle(fontSize: sizebotones, color: Colors.indigo[800]),
+           ),
+
+           Icon(Icons.album , size: sizebotones, color:Colors.blue[900]) 
+         ],
+       ),
+       onPressed: (){
+
+       },
+      ),
+
+       
+
+     ]
     );
-  } 
+  }
+
 }//Class Aquadoro

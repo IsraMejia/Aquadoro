@@ -76,7 +76,7 @@ class _GoalCardState extends State<GoalCard> {
                 alignment: AlignmentDirectional.center ,
                 child: FlatButton(
                   onPressed: (){
-              /*     Navigator.pushNamed(context, 'aquadoro' ,
+                 /* Navigator.pushNamed(context, 'aquadoro' ,
                     arguments: 
                     <String , String > {
                        'actividad' : 'salu1',

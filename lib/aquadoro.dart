@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Aquadoro extends StatelessWidget {
+class Aquadoro extends StatefulWidget {
   // const Aquadoro({Key key}) : super(key: key);
 
   Aquadoro({
@@ -14,6 +14,11 @@ class Aquadoro extends StatelessWidget {
   final int tCDescanso;
 
   @override
+  _AquadoroState createState() => _AquadoroState();
+}
+
+class _AquadoroState extends State<Aquadoro> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -24,9 +29,8 @@ class Aquadoro extends StatelessWidget {
               children: <Widget>[
                  _nuestroApbar( context),
                  SizedBox(height: 80),
-                 Text('hola',
-                  style: TextStyle(fontSize: 30),
-                 ),
+                 
+                 
 
               ],
             ),
@@ -35,27 +39,29 @@ class Aquadoro extends StatelessWidget {
         ]
       ),
     );
-  }//build
-
+  }
   Widget _nuestroApbar(BuildContext context){
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start ,
       children: <Widget>[
 
-        FlatButton(
-          padding: EdgeInsets.only(right: 20),
-          onPressed: () {
-              Navigator.pop(context);
-              print("Tengo registrado : $actividad");
-              print("Tengo registrado focus  : $tConcentracion");
-              print("Tengo registrado relax : $tCDescanso");
-          },
-          child: Icon(Icons.arrow_back_ios, size: 35, color: Colors.cyan[100])
+        Container(
+          width: 50,
+          child: FlatButton(
+            padding: EdgeInsets.only(right: 10),
+            onPressed: () {
+                Navigator.pop(context);
+                print("Tengo registrado : ${widget.actividad}");
+                print("Tengo registrado focus  : ${widget.tConcentracion}");
+                print("Tengo registrado relax : ${widget.tCDescanso}");
+            },
+            child: Icon(Icons.arrow_back_ios, size: 35, color: Colors.cyan[100])
+          ),
         ),
 
         
         Expanded(
-          child: Text( "Practica de Dispositivos E." ,
+          child: Text( widget.actividad ,
             style: TextStyle( fontSize: 30,fontWeight: FontWeight.bold ,color: Colors.cyan[50] ),
           ),
         ),
@@ -65,9 +71,6 @@ class Aquadoro extends StatelessWidget {
       ],
     );
   }
-
-
-
 
   Widget fondoPomodoro() {
     return Container(
@@ -82,5 +85,4 @@ class Aquadoro extends StatelessWidget {
      ),
     );
   } 
-
 }//Class Aquadoro

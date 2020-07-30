@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class Aquadoro extends StatefulWidget {
   // const Aquadoro({Key key}) : super(key: key);
@@ -18,6 +19,8 @@ class Aquadoro extends StatefulWidget {
 }
 
 class _AquadoroState extends State<Aquadoro> {
+  var rand = Random();
+  int contador  ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +37,7 @@ class _AquadoroState extends State<Aquadoro> {
                  SizedBox(height: 20,),
                  _aquadoroStack(),
                  Expanded(child: Container()),
-                 _botones(),
+                 _botones(context),
                  Expanded(child: Container()),
 
               ],
@@ -92,6 +95,115 @@ class _AquadoroState extends State<Aquadoro> {
   }
 
   Widget _contadorAcuadoros(){
+    contador = rand.nextInt(4)+1;
+    print('El valor del contador es  $contador');
+    switch (contador) {
+      
+      case 1:
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround ,
+        children: <Widget>[
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ),    
+         ],
+        );   
+      break;
+
+      case 2:
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround ,
+        children: <Widget>[
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ), 
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ),   
+         ],
+        );   
+      break;
+
+      case 3:
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround ,
+        children: <Widget>[
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ), 
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ), 
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ),   
+         ],
+        );   
+      break;
+
+      case 4:
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround ,
+        children: <Widget>[
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ), 
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ), 
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ), 
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ), 
+         ],
+        );   
+      break;
+
+      case 5:
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround ,
+        children: <Widget>[
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ),  
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ), 
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ), 
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ), 
+          Icon( Icons.av_timer,
+            color: Colors.teal[50],
+            size: 45,
+          ),  
+         ],
+        );   
+      break;
+
+
+      default: return Icon( Icons.av_timer, color: Colors.teal[50], size: 45, );
+    }
+
+
     return Row(
     mainAxisAlignment: MainAxisAlignment.spaceAround ,
      children: <Widget>[
@@ -122,7 +234,10 @@ class _AquadoroState extends State<Aquadoro> {
         ),
        
      ],
-    );
+    ); 
+    //5 pomodoros 
+
+
   }
 
   Widget _aquadoroStack(){
@@ -140,13 +255,26 @@ class _AquadoroState extends State<Aquadoro> {
               fit: BoxFit.cover
           ),
          ),
-        )
+        ),
+
+        Positioned(
+          top: 120, left: 94, 
+          child: Container(
+            height: 100, width: 170,
+            color: Colors.blue[200],
+            child: Column(
+              children: <Widget>[
+
+              ],
+            ),
+          )
+        ),
 
       ],
     );
   }
 
-  Widget _botones(){
+  Widget _botones(BuildContext context){
     double sizebotones= 27.0;
     return Row(
      mainAxisAlignment: MainAxisAlignment.spaceAround ,
@@ -170,7 +298,7 @@ class _AquadoroState extends State<Aquadoro> {
 
       OutlineButton(
        borderSide: BorderSide(
-         width: 2, color: Colors.blue[900], style: BorderStyle.solid ),
+         width: 3, color: Colors.blue[900], style: BorderStyle.solid ),
        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15)
        ),
@@ -184,7 +312,27 @@ class _AquadoroState extends State<Aquadoro> {
          ],
        ),
        onPressed: (){
+        
+       },
+      ),
 
+      OutlineButton(
+       borderSide: BorderSide(
+         width: 3, color: Colors.blue[900], style: BorderStyle.solid ),
+       shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15)
+       ),
+       child: Row(
+         children: <Widget>[
+           Text('P',
+            style: TextStyle(fontSize: 20, color: Colors.indigo[800]),
+           ),
+
+           Icon(Icons.adjust , size: sizebotones, color:Colors.blue[900]) 
+         ],
+       ),
+       onPressed: (){
+         Navigator.pushNamed(context, 'pomodoroPage' );
        },
       ),
 

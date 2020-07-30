@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         'pomodoroPage'    : (BuildContext context) => PomodoroPage(),   
         'pantallaDeCarga' : (BuildContext context) => PantallaDeCarga(), 
         //'aquadoro'        : (BuildContext context) => Aquadoro(), 
+        //Ya no es necesario ya que se muestra la otra manera de mandar la ruta , 
  
       },
       

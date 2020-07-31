@@ -21,6 +21,9 @@ class Aquadoro extends StatefulWidget {
 class _AquadoroState extends State<Aquadoro> {
   var rand = Random();
   int contador  ;
+  bool kindAvticity = true;
+  String tipoActividad = "Focus";
+  String timerString = "00:00";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -199,44 +202,8 @@ class _AquadoroState extends State<Aquadoro> {
         );   
       break;
 
-
       default: return Icon( Icons.av_timer, color: Colors.teal[50], size: 45, );
     }
-
-
-    return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround ,
-     children: <Widget>[
-
-        Icon( Icons.av_timer,
-          color: Colors.teal[50],
-          size: 45,
-        ),
-
-        Icon( Icons.av_timer,
-          color: Colors.teal[50],
-          size: 45,
-        ),
-
-        Icon( Icons.av_timer,
-          color: Colors.teal[50],
-          size: 45,
-        ),
-
-        Icon( Icons.av_timer,
-          color: Colors.teal[50],
-          size: 45,
-        ),
-
-        Icon( Icons.av_timer,
-          color: Colors.teal[50],
-          size: 45,
-        ),
-       
-     ],
-    ); 
-    //5 pomodoros 
-
 
   }
 
@@ -258,13 +225,21 @@ class _AquadoroState extends State<Aquadoro> {
         ),
 
         Positioned(
-          top: 120, left: 94, 
+          top: 140, left: 96, 
           child: Container(
-            height: 100, width: 170,
-            color: Colors.blue[200],
+            height: 75, width: 170,
+            // color: Colors.cyan[500], //Para poder ver que espacio se ocupa
             child: Column(
               children: <Widget>[
-
+                Text(tipoActividad,
+                  style: TextStyle(
+                    fontSize: 23, color: Colors.indigo[800], 
+                    fontWeight: FontWeight.bold 
+                  ),
+                ),
+                Text(timerString,
+                style: TextStyle(fontSize: 38, color: Colors.indigo[700]),
+                ),
               ],
             ),
           )
@@ -304,15 +279,31 @@ class _AquadoroState extends State<Aquadoro> {
        ),
        child: Row(
          children: <Widget>[
-           Text('Focus',
+           Text( tipoActividad   ,
             style: TextStyle(fontSize: sizebotones, color: Colors.indigo[800]),
            ),
 
-           Icon(Icons.album , size: sizebotones, color:Colors.blue[900]) 
+           Icon( (kindAvticity)? Icons.adjust : Icons.album , 
+            size: sizebotones, color:Colors.blue[900]
+           ) 
          ],
        ),
        onPressed: (){
-        
+        if(kindAvticity){
+          setState(() {
+          tipoActividad = 'Focus';
+          kindAvticity = false;
+            
+          });
+          print(tipoActividad);
+        }else{
+          setState(() {
+          tipoActividad = 'Relax';
+          kindAvticity = true;
+            
+          });
+          print(tipoActividad);
+        }
        },
       ),
 

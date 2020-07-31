@@ -19,11 +19,20 @@ class Aquadoro extends StatefulWidget {
 }
 
 class _AquadoroState extends State<Aquadoro> {
+  
   var rand = Random();
   int contador  ;
-  bool kindAvticity = true;
+  bool kindAvticity;
   String tipoActividad = "Focus";
   String timerString = "00:00";
+
+  @override
+  void initState() {
+    super.initState();
+    kindAvticity = false;
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

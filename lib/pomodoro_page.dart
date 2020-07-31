@@ -2,22 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class PomodoroPage extends StatefulWidget
- {
-  // PomodoroPage({
-  //   this.actividad,
-  // });
-  // final String actividad; 
+class PomodoroPage extends StatefulWidget{
   @override
   _PomodoroPageState createState() => _PomodoroPageState();
 }
 
 class _PomodoroPageState extends State<PomodoroPage> {
-  _PomodoroPageState({
-    this.actividad,
-  });
-
-  final String actividad;
+  
   //Tiempo en minutos 
   int tiempoTrabajoMin = 1;
   int tiempoDescansoMin = 1;
@@ -74,7 +65,6 @@ class _PomodoroPageState extends State<PomodoroPage> {
           padding: EdgeInsets.only(right: 20),
           onPressed: () {
               Navigator.pop(context );
-              print("Tengo registrado :$actividad");
           },
           child: Icon(Icons.arrow_back_ios, size: 35, color: Colors.cyan[100])
         ),

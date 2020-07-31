@@ -22,15 +22,15 @@ class _AquadoroState extends State<Aquadoro> {
   
   var rand = Random();
   int contador  ;
-  bool kindAvticity;
+  bool kindAvticity = false;
   String tipoActividad = "Focus";
   String timerString = "00:00";
 
-  @override
-  void initState() {
-    super.initState();
-    kindAvticity = false;
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   kindAvticity = false;
+  // }
 
 
   @override

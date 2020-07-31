@@ -10,14 +10,14 @@ class PomodoroPage extends StatefulWidget{
 class _PomodoroPageState extends State<PomodoroPage> {
   
   //Tiempo en minutos 
-  int tiempoTrabajoMin = 1;
-  int tiempoDescansoMin = 1;
+  int tConcentracion = 1;
+  int tDescanso = 1;
 
 //Tiempo en segundos
-  int tiempoTrabajoSeg =0;
-  int tiempoDescansoSeg =0;
+  int tConcentracionSeg =0;
+  int tDescansoSeg =0;
 
-  //para los botones
+  //para los botones 
   bool botonComienzo = true;
   bool botonReseteo = false; 
   bool botonDescanso = false; 
@@ -82,9 +82,6 @@ class _PomodoroPageState extends State<PomodoroPage> {
     );
   }
 
-
-
-
   //Formato fondo 
   Widget fondoPomodoro() {
     return Container(
@@ -122,7 +119,6 @@ class _PomodoroPageState extends State<PomodoroPage> {
     );
   }
   
-
   ///Botones 
 Widget _botones(){
   return Column(
@@ -177,49 +173,47 @@ Widget _botones(){
       botonComienzo = false;
       botonReseteo = true;
       botonDescanso=false;
-      
 
     });
     
-      tiempoTrabajoSeg  = (tiempoTrabajoMin * 60);
-      
+      tConcentracionSeg  = (tConcentracion * 100);//tConcentracion
+      //Aqui se define el tiempo hardcodeado xd, en acuadoro es tConcentracion
+    
 
-
-    Timer.periodic(Duration (seconds: 1),
-     (Timer t) {
+    Timer.periodic(Duration (seconds: 1), (Timer t) {
       setState(() {
 
-        if(tiempoTrabajoSeg < 1 || revisarTiempoTra ==false ){
+        if(tConcentracionSeg < 1 || revisarTiempoTra ==false ){
           t.cancel();
           revisarTiempoTra = true;
           tiempoPantalla = "00:00";
           botonComienzo = true;
           botonReseteo = false;
-          if(tiempoTrabajoSeg<1){
+          if(tConcentracionSeg<1){
             botonDescanso =true;
           }
 
-        }else if(tiempoTrabajoSeg < 60){
+        }else if(tConcentracionSeg < 60){
           
-          tiempoPantalla='$tiempoTrabajoSeg';
-          tiempoTrabajoSeg--;
-        }else if(tiempoTrabajoSeg <3600){
-          int m = tiempoTrabajoSeg ~/60;
-          int s = tiempoTrabajoSeg - (60*m);
+          tiempoPantalla='$tConcentracionSeg';
+          tConcentracionSeg--;
+        }else if(tConcentracionSeg <3600){
+          int m = tConcentracionSeg ~/60;
+          int s = tConcentracionSeg - (60*m);
           tiempoPantalla = '$m:$s';
-          tiempoTrabajoSeg--;
+          tConcentracionSeg--;
           
         }else{
-          int h = tiempoTrabajoSeg ~/3600;
-          int t = tiempoTrabajoSeg - (3600*h);
+          int h = tConcentracionSeg ~/3600;
+          int t = tConcentracionSeg - (3600*h);
           int m = t ~/ 60;
           int s = t-(60*m);
           tiempoPantalla = '$h:$m:$s';
-          tiempoTrabajoSeg--; 
-          
+          tConcentracionSeg--;  
         }
-      });
-     });
+      }); //SetState
+     }//(Timer t)
+    );
 
   }
   
@@ -231,13 +225,13 @@ Widget _botones(){
       revisarTiempoDes=true;
     });
       //Se pasan los minutos de descanso a segundos 
-  tiempoDescansoSeg =(tiempoDescansoMin * 60); 
+  tDescansoSeg =(tDescanso * 62); 
 
   Timer.periodic(Duration(seconds: 1),
    (Timer t) { 
      setState(() {
 
-       if(tiempoDescansoSeg < 1 || revisarTiempoDes ==false ){
+       if(tDescansoSeg < 1 || revisarTiempoDes ==false ){
           t.cancel();
           revisarTiempoDes = true;
           tiempoPantalla = "00:00";
@@ -246,24 +240,24 @@ Widget _botones(){
           botonDescanso =false;
           
 
-        }else if(tiempoTrabajoSeg < 60){
+        }else if(tConcentracionSeg < 60){
           
-          tiempoPantalla='$tiempoDescansoSeg';
-          tiempoDescansoSeg--;
+          tiempoPantalla='$tDescansoSeg';
+          tDescansoSeg--;
           
-        }else if(tiempoDescansoSeg <3600){
-          int m = tiempoDescansoSeg ~/60;
-          int s = tiempoDescansoSeg - (60*m);
+        }else if(tDescansoSeg <3600){
+          int m = tDescansoSeg ~/60;
+          int s = tDescansoSeg - (60*m);
           tiempoPantalla = '$m:$s';
-          tiempoDescansoSeg--;
+          tDescansoSeg--;
           
         }else{
-          int h = tiempoDescansoSeg ~/3600;
-          int t = tiempoDescansoSeg - (3600*h);
+          int h = tDescansoSeg ~/3600;
+          int t = tDescansoSeg - (3600*h);
           int m = t ~/ 60;
           int s = t-(60*m);
           tiempoPantalla = '$h:$m:$s';
-          tiempoDescansoSeg--; 
+          tDescansoSeg--; 
         }
        
      });
@@ -274,20 +268,20 @@ Widget _botones(){
 
 
   void _reseteo(){
-
    setState(() {
      botonComienzo=true;
      revisarTiempoTra=false;
      revisarTiempoDes=false;
 
-      if(tiempoTrabajoSeg>1 || tiempoDescansoSeg>1){
-     botonComienzo=true;
-     botonReseteo = false;
-     botonDescanso=false;
-     revisarTiempoTra=false;
-     revisarTiempoDes=false;
+      if(tConcentracionSeg>1 || tDescansoSeg>1){
+      //En caso de que aun tenga tiempo los timers      
+        botonComienzo=true;
+        botonReseteo = false;
+        botonDescanso=false;
+        revisarTiempoTra=false;
+        revisarTiempoDes=false;
 
-   }
+      }
    });
   }
 

@@ -9,9 +9,10 @@ class GoalsPage extends StatefulWidget {
 
 class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 //TickerProviderStateMixin Nos servira para agregarle animaciones a las tarjetas cuando son agregadas
+
   final List<GoalCard> _metas =[];
   int index;
-  // final FocusNode _focusNode = new FocusNode( );
+  
 
   @override
   Widget build(BuildContext context) { 

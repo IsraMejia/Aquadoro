@@ -1,7 +1,7 @@
 
 import 'package:aquadoro/aquadoro.dart';
 import 'package:flutter/material.dart';
-
+import 'goals_page.dart';
 /**
  * Este archivo genera las tarjetas de las actividades
  * La idea es que se puedan hacer tarjetas infinitas
@@ -28,7 +28,6 @@ class GoalCard extends StatefulWidget{
 }
 
 class _GoalCardState extends State<GoalCard> {
-  // Map<String , String > datosPomodoro = { 'actividad' : widget.actividad };
   @override
   Widget build(BuildContext context) {
     double anchoPantalla = MediaQuery.of(context).size.width;
@@ -76,25 +75,25 @@ class _GoalCardState extends State<GoalCard> {
                 alignment: AlignmentDirectional.center ,
                 child: FlatButton(
                   onPressed: (){
-                 /* Navigator.pushNamed(context, 'aquadoro' ,
-                    arguments: 
-                    <String , String > {
-                       'actividad' : 'salu1',
-                       'hola'      : 'salu2',
-                    },
-                   );*/
-
-                   Navigator.of(context).push(MaterialPageRoute(
-                     builder: (context) => Aquadoro(
-                       actividad: widget.actividad ,
-                       tConcentracion: widget.tConcentracion,
-                       tCDescanso: widget.tDescanso,
-                     ),
-                    )
-                   );//Navigator...push(
-
-                   print("Se mando la Actividad: ${widget.actividad}");
+                   if ((widget.actividad != null) && (widget.tConcentracion != null) && (widget.tDescanso != null) ){
+                     //if( (widget.tConcentracion != null) && (widget.tDescanso != null)  ){
+                      //En caso de que la actividad y los tiempo sean definidos se mandan
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Aquadoro(
+                          actividad: widget.actividad ,
+                          tConcentracion: widget.tConcentracion,
+                          tDescanso: widget.tDescanso,
+                        ),
+                        )
+                      );//Navigator...push(
+                      print("Se mando la Actividad: ${widget.actividad}");
+                    //}
+                   }else{
+                     //Si nada esta definido no hace nada, pero se mostrara un alert dialog
+                   }
+                   
                   },
+
                   child: Icon(
                     Icons.arrow_forward_ios ,
                     size :anchoPantalla*0.1, 

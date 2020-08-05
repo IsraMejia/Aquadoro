@@ -23,7 +23,7 @@ class Aquadoro extends StatefulWidget {
 class _AquadoroState extends State<Aquadoro> {
   
   var rand = Random();
-  int contador;
+  int contador=0;
   bool kindAvticity = false;//para cambiar los strings e iconos Focus/Relax
   String tipoActividad = "Focus";
   String tiempoPantalla ;//Es el timer que se muestra en pantalla
@@ -43,8 +43,10 @@ class _AquadoroState extends State<Aquadoro> {
   * 3-C. termina TimerFocus, esta listo TimerRelax y se habilita relax
   * 4-C. se ejecuta TimerRelax y esta
   */
-  bool absorbtimer = false ; //El boton inicia habilitado por defecto
-  //false habilita el botonStart, true lo deshabilida
+  
+
+  //Simulacoin Timers despues borrar👇🏼
+  int pruebaTimer = 0;
 
   @override
   void initState() { 
@@ -128,9 +130,9 @@ class _AquadoroState extends State<Aquadoro> {
   }
 
   Widget _contadorAcuadoros(){
-    contador = rand.nextInt(4)+1;
-    // contador = 5;
-    print('El valor del contador es  $contador');
+   //contador = rand.nextInt(4)+1;
+    //  contador = 5;
+    // print('El valor del contador es  $contador');
     switch (contador) {
       
       case 1:
@@ -233,7 +235,7 @@ class _AquadoroState extends State<Aquadoro> {
         );   
       break;
 
-      default: return Icon( Icons.av_timer, color: Colors.teal[50], size: 45, );
+      default: return Container(height: 45);
     }
 
   }
@@ -302,9 +304,8 @@ class _AquadoroState extends State<Aquadoro> {
        onPressed: (){       },
       ),
 
-      AbsorbPointer(  //BotonStart -> Focus/Relax
-       absorbing: absorbtimer,
-       child: OutlineButton(
+      
+      OutlineButton(
          borderSide: BorderSide(
            width: 3, color: Colors.blue[900], style: BorderStyle.solid ),
          shape: RoundedRectangleBorder(
@@ -322,35 +323,17 @@ class _AquadoroState extends State<Aquadoro> {
            ],
          ),
          onPressed: (){
-          // if(kindAvticity){
-          //   setState(() {
-          //   //Se definira una variable que diga si se acabo el timer o no y deje 
-          //   //hacer los cambios aqui con un if(variable) 
-          //   tipoActividad = 'Focus';
-          //   kindAvticity = false;
-            
-          //   });
-          //   _timerConcentracion();
-          //   print(tipoActividad);
-          // }else{
-          //   setState(() {
-          //   tipoActividad = 'Relax';
-          //   kindAvticity = true;
-              
-          //   });
-          //   print(tipoActividad);
-          // }
+
           switch (startState) {
             case 1:{ //En caso que se de click al boton que sale cuando se inicia la app
               setState(() {
-                tipoActividad = 'Focus';
-                kindAvticity = false; //Para el icono de focus Aquadoro
                 startState = 2; //Para cambiar al segundo estado
-                absorbtimer = true; //Deshabilita el boton
               });
               /**
                * Metodo para correr el timer de Concentracion
                */
+              print('Se hizo click en 1 , AHORA estoy en startState= $startState');
+              
             }break;
  
             case 2:{//En caso en que se de click al boton cuando esta corriendo el timer Concentracion
@@ -358,24 +341,39 @@ class _AquadoroState extends State<Aquadoro> {
                 //Si se termino la cuenta regresiva del timer de concentracion
                 setState(() {
                   startState = 3; //Para cambiar al tercer Estado estado
-                  absorbtimer = false ; //Se habilita el boton
                   tipoActividad = 'Relax'; 
                   kindAvticity = true ; //Para el icono de Relax Aquadoro
+                  
                 });
-              }
+              }else{
               //Si sigue en cuenta regresiva no hace nada xd
+                setState(() {
+                  //-------Simulacion del timer
+                  if(pruebaTimer <= 1){
+                    pruebaTimer++;
+                    print('PruebaTimer = $pruebaTimer');
+                  }else{
+                    revisarTiempoConcentracion = false; //Se termino el timer :v jaja
+                    print('PruebaTimer = $pruebaTimer con tConcentracion $revisarTiempoConcentracion');
+                    pruebaTimer =0;
+                  }
+                  //-------
+                });
+
+              }
+              print('Se hizo click en 2 , AHORA estoy en startState= $startState');
             }break;
 
             case 3:{//En caso de que este habilitado el timer Relax y se de click en él 
               setState(() {
                 startState = 4; //Para cambiar al cuarto estado
-                absorbtimer = true ; //Se deshabilita el boton
                 tipoActividad = 'Focus';
                 kindAvticity = false; //Para el icono de focus Aquadoro
               });
               /**
                * Metodo para correr el timer de Concentracion
                */
+              print('Se hizo click en 3 , AHORA estoy en startState= $startState');
             }break;
 
             case 4:{//En caso de que este corriendo el timer de relajacion y se de click
@@ -383,11 +381,37 @@ class _AquadoroState extends State<Aquadoro> {
                 //Si termino la cuenta regresiva del tiempo de descanso 
                 setState(() {
                   startState = 1; //Cambiar al primer estado
-                  absorbtimer = false ; //lo habilita
-                  tipoActividad = 'Concentracion';
+                  tipoActividad = 'Focus';
                   kindAvticity = false; //Para el icono de focus Aquadoro
+
+                  if(contador <= 5){
+                   contador++;//Le sumamos un Aquadoro al contador
+                   print('El valor del contador es  $contador');
+                  } else{
+                    contador =0;
+                    /**
+                     * Lanzar alert dialog de subdivir las tareas y tomar descanso largo
+                     */
+                    print('Te recomiendo subdivir las tareas y tomar descanso largo');
+                  }
                 });
                 //Si sigue en cuenta regresiva no hace nada xd
+                print('Se hizo click en 4 , AHORA estoy en startState= $startState');
+              }else{
+              //Si sigue en cuenta regresiva no hace nada xd
+                setState(() {
+                  //-------Simulacion del timer
+                  if(pruebaTimer <= 1){
+                    pruebaTimer++;
+                    print('PruebaTimer = $pruebaTimer');
+                  }else{
+                    revisarTiempoDes = false; //Se termino el timer :v jaja
+                    print('PruebaTimer = $pruebaTimer con tConcentracion $revisarTiempoDes');
+                    pruebaTimer =0;
+                  }
+                  //-------
+                });
+
               }
 
             }break;
@@ -399,7 +423,7 @@ class _AquadoroState extends State<Aquadoro> {
 
          },
         ),
-      ),
+      
 
       // OutlineButton(
       //  borderSide: BorderSide(

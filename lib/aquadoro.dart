@@ -45,7 +45,7 @@ class _AquadoroState extends State<Aquadoro> {
   */
   
 
-  //Simulacoin Timers despues borrar👇🏼
+  //Simulacion Timers despues borrar👇🏼
   int pruebaTimer = 0;
 
   @override
@@ -327,6 +327,8 @@ class _AquadoroState extends State<Aquadoro> {
           switch (startState) {
             case 1:{ //En caso que se de click al boton que sale cuando se inicia la app
               setState(() {
+                tipoActividad = 'Focus';
+                kindAvticity = false;
                 startState = 2; //Para cambiar al segundo estado
               });
               /**
@@ -371,7 +373,7 @@ class _AquadoroState extends State<Aquadoro> {
                 kindAvticity = false; //Para el icono de focus Aquadoro
               });
               /**
-               * Metodo para correr el timer de Concentracion
+               * Metodo para correr el timer de Descanso
                */
               print('Se hizo click en 3 , AHORA estoy en startState= $startState');
             }break;

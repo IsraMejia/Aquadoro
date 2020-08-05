@@ -127,6 +127,7 @@ class _AquadoroState extends State<Aquadoro> {
 
   Widget _contadorAcuadoros(){
     contador = rand.nextInt(4)+1;
+    // contador = 5;
     print('El valor del contador es  $contador');
     switch (contador) {
       

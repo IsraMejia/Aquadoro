@@ -43,6 +43,8 @@ class _AquadoroState extends State<Aquadoro> {
   * 3-C. termina TimerFocus, esta listo TimerRelax y se habilita relax
   * 4-C. se ejecuta TimerRelax y esta
   */
+  bool absorbtimer = false ; //El boton inicia habilitado por defecto
+  //false habilita el botonStart, true lo deshabilida
 
   @override
   void initState() { 
@@ -300,43 +302,103 @@ class _AquadoroState extends State<Aquadoro> {
        onPressed: (){       },
       ),
 
-      OutlineButton(
-       borderSide: BorderSide(
-         width: 3, color: Colors.blue[900], style: BorderStyle.solid ),
-       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15)
-       ),
-       child: Row(
-         children: <Widget>[
-           Text( tipoActividad   ,
-            style: TextStyle(fontSize: sizebotones, color: Colors.indigo[800]),
-           ),
+      AbsorbPointer(  //BotonStart -> Focus/Relax
+       absorbing: absorbtimer,
+       child: OutlineButton(
+         borderSide: BorderSide(
+           width: 3, color: Colors.blue[900], style: BorderStyle.solid ),
+         shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15)
+         ),
+         child: Row(
+           children: <Widget>[
+             Text( tipoActividad   ,
+              style: TextStyle(fontSize: sizebotones, color: Colors.indigo[800]),
+             ),
 
-           Icon( (kindAvticity)? Icons.adjust : Icons.album , 
-            size: sizebotones, color:Colors.blue[900]
-           ) 
-         ],
-       ),
-       onPressed: (){
-        if(kindAvticity){
-          setState(() {
-          //Se definira una variable que diga si se acabo el timer o no y deje 
-          //hacer los cambios aqui con un if(variable) 
-          tipoActividad = 'Focus';
-          kindAvticity = false;
-          
-          });
-          _timerConcentracion();
-          print(tipoActividad);
-        }else{
-          setState(() {
-          tipoActividad = 'Relax';
-          kindAvticity = true;
+             Icon( (kindAvticity)? Icons.adjust : Icons.album , 
+              size: sizebotones, color:Colors.blue[900]
+             ) 
+           ],
+         ),
+         onPressed: (){
+          // if(kindAvticity){
+          //   setState(() {
+          //   //Se definira una variable que diga si se acabo el timer o no y deje 
+          //   //hacer los cambios aqui con un if(variable) 
+          //   tipoActividad = 'Focus';
+          //   kindAvticity = false;
             
-          });
-          print(tipoActividad);
-        }
-       },
+          //   });
+          //   _timerConcentracion();
+          //   print(tipoActividad);
+          // }else{
+          //   setState(() {
+          //   tipoActividad = 'Relax';
+          //   kindAvticity = true;
+              
+          //   });
+          //   print(tipoActividad);
+          // }
+          switch (startState) {
+            case 1:{ //En caso que se de click al boton que sale cuando se inicia la app
+              setState(() {
+                tipoActividad = 'Focus';
+                kindAvticity = false; //Para el icono de focus Aquadoro
+                startState = 2; //Para cambiar al segundo estado
+                absorbtimer = true; //Deshabilita el boton
+              });
+              /**
+               * Metodo para correr el timer de Concentracion
+               */
+            }break;
+ 
+            case 2:{//En caso en que se de click al boton cuando esta corriendo el timer Concentracion
+              if(revisarTiempoConcentracion == false){
+                //Si se termino la cuenta regresiva del timer de concentracion
+                setState(() {
+                  startState = 3; //Para cambiar al tercer Estado estado
+                  absorbtimer = false ; //Se habilita el boton
+                  tipoActividad = 'Relax'; 
+                  kindAvticity = true ; //Para el icono de Relax Aquadoro
+                });
+              }
+              //Si sigue en cuenta regresiva no hace nada xd
+            }break;
+
+            case 3:{//En caso de que este habilitado el timer Relax y se de click en él 
+              setState(() {
+                startState = 4; //Para cambiar al cuarto estado
+                absorbtimer = true ; //Se deshabilita el boton
+                tipoActividad = 'Focus';
+                kindAvticity = false; //Para el icono de focus Aquadoro
+              });
+              /**
+               * Metodo para correr el timer de Concentracion
+               */
+            }break;
+
+            case 4:{//En caso de que este corriendo el timer de relajacion y se de click
+              if( revisarTiempoDes == false){
+                //Si termino la cuenta regresiva del tiempo de descanso 
+                setState(() {
+                  startState = 1; //Cambiar al primer estado
+                  absorbtimer = false ; //lo habilita
+                  tipoActividad = 'Concentracion';
+                  kindAvticity = false; //Para el icono de focus Aquadoro
+                });
+                //Si sigue en cuenta regresiva no hace nada xd
+              }
+
+            }break;
+
+
+            default: break; //por defecto no hace nada xd
+          }
+
+
+         },
+        ),
       ),
 
       // OutlineButton(

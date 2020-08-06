@@ -328,6 +328,7 @@ class _AquadoroState extends State<Aquadoro> {
             case 1:{ //En caso que se de click al boton que sale cuando se inicia la app
               setState(() {
                 startState = 2; //Para cambiar al segundo estado
+                revisarTiempoConcentracion = true;
               });
               /**
                * Metodo para correr el timer de Concentracion
@@ -369,12 +370,14 @@ class _AquadoroState extends State<Aquadoro> {
                 startState = 4; //Para cambiar al cuarto estado
                 tipoActividad = 'Focus';
                 kindAvticity = false; //Para el icono de focus Aquadoro
+                revisarTiempoDes = true;
               });
+              print('Se hizo click en 3 , AHORA estoy en startState= $startState');
               /**
                * Metodo para correr el timer de Concentracion
                */
-              print('Se hizo click en 3 , AHORA estoy en startState= $startState');
-            }break;
+            } 
+            break;
 
             case 4:{//En caso de que este corriendo el timer de relajacion y se de click
               if( revisarTiempoDes == false){
@@ -414,10 +417,12 @@ class _AquadoroState extends State<Aquadoro> {
 
               }
 
-            }break;
+            }
+            break;
 
 
-            default: break; //por defecto no hace nada xd
+            default: print('StartStatexD?');
+            break; //por defecto no hace nada xd
           }
 
 

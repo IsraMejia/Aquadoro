@@ -32,11 +32,15 @@ class _AquadoroState extends State<Aquadoro> {
   int tConcentracionSeg =0;
   int tDescansoSeg =0;
 
+
   //para ver si el contador esta haciendo la cuenta regresiva o esta detenido
   bool revisarTiempoConcentracion = true;
   bool revisarTiempoDes = true;
    
   int startState = 1;
+  int resetState = 1;
+
+  Timer t; 
     /*       Tenemos 4 estados del boton start(Focus/Relax):
   * 1-Cuando aun no inicia el timer listo de Concentracion y esta habilitado
   * 2-C. se ejecuta el timer de concentracion y esta deshabilitado
@@ -301,7 +305,42 @@ class _AquadoroState extends State<Aquadoro> {
            Icon(Icons.rotate_left , size: sizebotones, color:Colors.teal[900])
          ],
        ),
-       onPressed: (){       },
+       onPressed: (){   
+
+         switch(resetState){
+
+           case  1: 
+           setState(() {
+             if(tConcentracionSeg > 1 ){
+           revisarTiempoConcentracion = false;
+           startState = 1;
+           print('Le diste en reset de focus');
+             }
+             
+           });
+           
+           break;
+
+           case 2:
+           setState(() {
+             if(tDescansoSeg > 1){
+           revisarTiempoDes= false;
+           startState =1;
+           print('Le diste en reset de Relax y te regreso a Focus');
+           }
+             
+           });
+           
+
+           break;
+
+          default:
+          break;
+         }
+       
+       
+        
+           },
       ),
 
       
@@ -327,12 +366,57 @@ class _AquadoroState extends State<Aquadoro> {
           switch (startState) {
             case 1:{ //En caso que se de click al boton que sale cuando se inicia la app
               setState(() {
+                tipoActividad = 'Focus'; 
+                kindAvticity = true ; //Para el icono de Relax Aquadoro
                 startState = 2; //Para cambiar al segundo estado
+                resetState = 1;
               });
               /**
                * Metodo para correr el timer de Concentracion
                */
+              
+              tConcentracionSeg = (widget.tConcentracion * 60);
+
+              Timer.periodic(Duration(seconds: 1), 
+              (t) { 
+                setState(() {
+                  if( tConcentracionSeg < 1 || revisarTiempoConcentracion == false){
+                  t.cancel();
+                  revisarTiempoConcentracion = true;
+                  if(tConcentracionSeg < 1){
+                    tiempoPantalla = "00:00";
+                    startState=3;
+                  }else{
+                    tiempoPantalla = "${widget.tConcentracion.toString()}:00";
+                    startState=1;
+                  }
+                  }else if( tConcentracionSeg < 60){
+                    tiempoPantalla='$tConcentracionSeg';
+                    tConcentracionSeg--;
+                  }else if( tConcentracionSeg <3600 ){
+                    int m = tConcentracionSeg ~/60;
+                    int s = tConcentracionSeg - (60*m);
+                    if (s<10){
+                       tiempoPantalla = '$m:0$s';
+                     }else{
+                       tiempoPantalla = '$m:$s';
+
+                     }
+                   
+                    tConcentracionSeg--;
+                  }else{
+                    int h = tConcentracionSeg ~/3600;
+                    int t = tConcentracionSeg - (3600*h);
+                    int m = t ~/ 60;
+                    int s = t-(60*m);
+                    tiempoPantalla = '$h:$m:$s';
+                    tConcentracionSeg--;  
+                  }
+                });
+              });
+
               print('Se hizo click en 1 , AHORA estoy en startState= $startState');
+              
               
             }break;
  
@@ -343,6 +427,8 @@ class _AquadoroState extends State<Aquadoro> {
                   startState = 3; //Para cambiar al tercer Estado estado
                   tipoActividad = 'Relax'; 
                   kindAvticity = true ; //Para el icono de Relax Aquadoro
+                  resetState = 1;
+ 
                   
                 });
               }else{
@@ -367,22 +453,68 @@ class _AquadoroState extends State<Aquadoro> {
             case 3:{//En caso de que este habilitado el timer Relax y se de click en él 
               setState(() {
                 startState = 4; //Para cambiar al cuarto estado
-                tipoActividad = 'Focus';
+                tipoActividad = 'Relax';
                 kindAvticity = false; //Para el icono de focus Aquadoro
+                tiempoPantalla = "${widget.tDescanso.toString()}:00";
+                resetState = 2;
+                
               });
               /**
-               * Metodo para correr el timer de Concentracion
+               * Metodo para correr el timer de Descanso
                */
+             tDescansoSeg = (widget.tDescanso * 60);
+
+              Timer.periodic(Duration(seconds: 1),
+               (t) {
+                 setState(() {
+                   resetState = 2;
+                   if(tDescansoSeg < 1 || revisarTiempoDes ==false){
+                     t.cancel();
+                     revisarTiempoDes = true;
+                     if( tDescansoSeg <1 ){
+                        tiempoPantalla = "00:00";
+                        startState=4;
+                     }else{
+                       tiempoPantalla = "${widget.tDescanso.toString()}:00";
+                       startState=3;
+                     }
+            
+                   }else if(tDescansoSeg < 60 ){
+                     tiempoPantalla = '$tDescansoSeg';
+                     tDescansoSeg--;
+                   } else if(tDescansoSeg < 3600 ){
+                     int m = tDescansoSeg ~/60;
+                     int s = tDescansoSeg - (60*m);
+                     if (s<10){
+                       tiempoPantalla = '$m:0$s';
+                     }else{
+                       tiempoPantalla = '$m:$s';
+                     }
+                     tDescansoSeg--;
+                   }else{
+                     int h = tDescansoSeg ~/3600;
+                     int t = tDescansoSeg - (3600*h);
+                     int m = t ~/ 60;
+                     int s = t-(60*m);
+                     tiempoPantalla = '$h:$m:$s';
+                     tDescansoSeg--; 
+                   }
+
+                 });
+                });
+
               print('Se hizo click en 3 , AHORA estoy en startState= $startState');
             }break;
 
             case 4:{//En caso de que este corriendo el timer de relajacion y se de click
+              resetState = 2;
               if( revisarTiempoDes == false){
                 //Si termino la cuenta regresiva del tiempo de descanso 
                 setState(() {
                   startState = 1; //Cambiar al primer estado
                   tipoActividad = 'Focus';
                   kindAvticity = false; //Para el icono de focus Aquadoro
+                  resetState = 2;
 
                   if(contador <= 5){
                    contador++;//Le sumamos un Aquadoro al contador
@@ -419,6 +551,10 @@ class _AquadoroState extends State<Aquadoro> {
 
             default: break; //por defecto no hace nada xd
           }
+            
+
+        
+
 
 
          },

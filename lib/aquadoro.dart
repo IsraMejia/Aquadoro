@@ -307,38 +307,22 @@ class _AquadoroState extends State<Aquadoro> {
        ),
        onPressed: (){   
 
-         switch(resetState){
-
-           case  1: 
-           setState(() {
-             if(tConcentracionSeg > 1 ){
+         if(tConcentracionSeg > 1 ){
            revisarTiempoConcentracion = false;
            startState = 1;
+           tConcentracionSeg = (widget.tConcentracion * 60);
            print('Le diste en reset de focus');
-             }
-             
-           });
-           
-           break;
-
-           case 2:
-           setState(() {
-             if(tDescansoSeg > 1){
+             } else if (tDescansoSeg >1){
            revisarTiempoDes= false;
            startState =1;
+           tConcentracionSeg = (widget.tConcentracion * 60);
+           kindAvticity = false;
+           tipoActividad = 'Focus';
+           tiempoPantalla = "${widget.tConcentracion.toString()}:00";
            print('Le diste en reset de Relax y te regreso a Focus');
-           }
-             
-           });
-           
+      
+             }
 
-           break;
-
-          default:
-          break;
-         }
-       
-       
         
            },
       ),
@@ -365,30 +349,27 @@ class _AquadoroState extends State<Aquadoro> {
 
           switch (startState) {
             case 1:{ //En caso que se de click al boton que sale cuando se inicia la app
-              setState(() {
-                tipoActividad = 'Focus'; 
-                kindAvticity = true ; //Para el icono de Relax Aquadoro
+              setState(() { //Para el icono de Relax Aquadoro
                 startState = 2; //Para cambiar al segundo estado
-                resetState = 1;
               });
               /**
                * Metodo para correr el timer de Concentracion
                */
-              
-              tConcentracionSeg = (widget.tConcentracion * 60);
 
+              tConcentracionSeg = (widget.tConcentracion * 60);
               Timer.periodic(Duration(seconds: 1), 
               (t) { 
                 setState(() {
+                  
                   if( tConcentracionSeg < 1 || revisarTiempoConcentracion == false){
                   t.cancel();
                   revisarTiempoConcentracion = true;
+                  tiempoPantalla = "${widget.tConcentracion.toString()}:00";
                   if(tConcentracionSeg < 1){
-                    tiempoPantalla = "00:00";
                     startState=3;
-                  }else{
-                    tiempoPantalla = "${widget.tConcentracion.toString()}:00";
-                    startState=1;
+                    tipoActividad = "Relax";
+                    kindAvticity = true;
+                    tiempoPantalla = "${widget.tDescanso.toString()}:00";
                   }
                   }else if( tConcentracionSeg < 60){
                     tiempoPantalla='$tConcentracionSeg';
@@ -427,7 +408,7 @@ class _AquadoroState extends State<Aquadoro> {
                   startState = 3; //Para cambiar al tercer Estado estado
                   tipoActividad = 'Relax'; 
                   kindAvticity = true ; //Para el icono de Relax Aquadoro
-                  resetState = 1;
+                  
  
                   
                 });
@@ -455,30 +436,37 @@ class _AquadoroState extends State<Aquadoro> {
                 startState = 4; //Para cambiar al cuarto estado
                 tipoActividad = 'Relax';
                 kindAvticity = false; //Para el icono de focus Aquadoro
-                tiempoPantalla = "${widget.tDescanso.toString()}:00";
-                resetState = 2;
-                
+
               });
               /**
                * Metodo para correr el timer de Descanso
                */
-             tDescansoSeg = (widget.tDescanso * 60);
-
+             
+              tDescansoSeg = (widget.tDescanso * 60);
               Timer.periodic(Duration(seconds: 1),
                (t) {
+                 
                  setState(() {
-                   resetState = 2;
+                   
+                   
                    if(tDescansoSeg < 1 || revisarTiempoDes ==false){
                      t.cancel();
                      revisarTiempoDes = true;
-                     if( tDescansoSeg <1 ){
-                        tiempoPantalla = "00:00";
-                        startState=4;
-                     }else{
-                       tiempoPantalla = "${widget.tDescanso.toString()}:00";
-                       startState=3;
+                     tiempoPantalla = "${widget.tDescanso.toString()}:00";
+                     if(tDescansoSeg <1 ){
+                       startState =1; 
+                       tipoActividad = "Focus";
+                       kindAvticity = false;
+                      tiempoPantalla = "${widget.tConcentracion.toString()}:00";
+                      if(contador <= 5){
+                      contador++;//Le sumamos un Aquadoro al contador
+                      print('El valor del contador es  $contador');
+                      }else{
+                        contador = 0;
+                      }
+
                      }
-            
+                     
                    }else if(tDescansoSeg < 60 ){
                      tiempoPantalla = '$tDescansoSeg';
                      tDescansoSeg--;
@@ -507,7 +495,7 @@ class _AquadoroState extends State<Aquadoro> {
             }break;
 
             case 4:{//En caso de que este corriendo el timer de relajacion y se de click
-              resetState = 2;
+              
               if( revisarTiempoDes == false){
                 //Si termino la cuenta regresiva del tiempo de descanso 
                 setState(() {
@@ -613,10 +601,7 @@ class _AquadoroState extends State<Aquadoro> {
        t.cancel();
        revisarTiempoConcentracion = true; 
        tiempoPantalla = "00:00";
-       startState = 3; //1-Cuando aun no inicia el timer listo de Concentracion y esta habilitado
-      if (tConcentracionSeg<1 ){
-        startState = 3;
-      }
+       
 
      }else if (tConcentracionSeg < 60){
       //Si hay menos de 60 segundos se muestra solo los segundos y decrementea el tiempo

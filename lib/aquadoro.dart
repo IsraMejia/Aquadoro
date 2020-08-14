@@ -40,8 +40,9 @@ class _AquadoroState extends State<Aquadoro> {
   int startState = 1;
   int resetState = 1;
 
-  //Para activar o desactivar el boton de Focus y Relax
+  //Para activar o desactivar el boton de Focus y Relax, Reset
   bool botonDeshabilitado = false;
+  bool resetDeshabilitado = false;
 
   Timer t; 
     /*       Tenemos 4 estados del boton start(Focus/Relax):
@@ -60,6 +61,7 @@ class _AquadoroState extends State<Aquadoro> {
     super.initState();
      tiempoPantalla = "${widget.tConcentracion.toString()}:00";
      //Por defecto se le asigna el del timer de Concentración
+     resetDeshabilitado=true;   //PAra que al iniciar la pantalla el boton reset este deshabilitado
   }
 
 
@@ -295,36 +297,39 @@ class _AquadoroState extends State<Aquadoro> {
      mainAxisAlignment: MainAxisAlignment.spaceAround ,
      children: <Widget>[
 
-      RaisedButton(
-       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15)
-       ),
-       color: Colors.cyan[200],
-       child: Row(
-         children: <Widget>[
-           Text('Reset',
-            style: TextStyle(fontSize: sizebotones, color: Colors.teal[900]),
-           ),
-           Icon(Icons.rotate_left , size: sizebotones, color:Colors.teal[900])
-         ],
-       ),
-       onPressed: (){   
+      AbsorbPointer( //Para poder deshabilitar el boton de reset 
+        absorbing: resetDeshabilitado,
+              child: RaisedButton(
+         shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15)
+         ),
+         color: Colors.cyan[200],
+         child: Row(
+           children: <Widget>[
+             Text('Reset',
+              style: TextStyle(fontSize: sizebotones, color: Colors.teal[900]),
+             ),
+             Icon(Icons.rotate_left , size: sizebotones, color:Colors.teal[900])
+           ],
+         ),
+         onPressed: (){   
 
-         if(tConcentracionSeg > 1 ){
-           revisarTiempoConcentracion = false;
-           startState = 1;
-           print('Le diste en reset de focus');
-             } else if (tDescansoSeg >1){
-           revisarTiempoDes= false;
-           startState =1;
-           kindAvticity = false;
-           tipoActividad = 'Focus';
-           tiempoPantalla = "${widget.tConcentracion.toString()}:00";
-           print('Le diste en reset de Relax y te regreso a Focus');
-             }
+           if(tConcentracionSeg > 1 ){
+             revisarTiempoConcentracion = false;
+             startState = 1;
+             print('Le diste en reset de focus');
+               } else if (tDescansoSeg >1){
+             revisarTiempoDes= false;
+             startState =1;
+             kindAvticity = false;
+             tipoActividad = 'Focus';
+             tiempoPantalla = "${widget.tConcentracion.toString()}:00";
+             print('Le diste en reset de Relax y te regreso a Focus');
+               }
 
-        
-           },
+          
+             },
+        ),
       ),
 
       //Se usa este widget para que el boton se deshabilite cuando el contador esta activo 
@@ -353,6 +358,7 @@ class _AquadoroState extends State<Aquadoro> {
               case 1:{ //Timer Focus
                 setState(() { //Para el icono de Relax Aquadoro
                   botonDeshabilitado = true;////Deshabilita el boton de Focus mientras el timer esta activo
+                  resetDeshabilitado =false; //Habilita el boton de reset 
                 });
                 /**
                  * Metodo para correr el timer de Concentracion
@@ -367,7 +373,8 @@ class _AquadoroState extends State<Aquadoro> {
                     t.cancel();
                     revisarTiempoConcentracion = true;
                     tiempoPantalla = "${widget.tConcentracion.toString()}:00";
-                    botonDeshabilitado = false; //Activa el boton de Focus
+                    botonDeshabilitado = false; //Habilita el boton de Focus
+                    resetDeshabilitado = true; //Deshabilita el boton de reset
                     if(tConcentracionSeg < 1){
                       botonDeshabilitado=false;
                       startState=2;
@@ -405,6 +412,7 @@ class _AquadoroState extends State<Aquadoro> {
               case 2:{//Timer de Relax
                 setState(() {
                   botonDeshabilitado = true; //Deshabilita el boton de Relax mientras el timer esta activo
+                  resetDeshabilitado = false; //Habilita el boton de reset 
                 });
                 /**
                  * Metodo para correr el timer de Descanso
@@ -417,7 +425,9 @@ class _AquadoroState extends State<Aquadoro> {
                      if(tDescansoSeg < 1 || revisarTiempoDes ==false){
                        t.cancel();
                        revisarTiempoDes = true;
-                       botonDeshabilitado = false;  // Activa el boton de Relax
+                       botonDeshabilitado = false; //Habilita el boton de Focus
+                       resetDeshabilitado = true; //Deshabilita el boton de reset
+
                        if(tDescansoSeg <1 ){
                          startState =1; 
                          tipoActividad = "Focus";

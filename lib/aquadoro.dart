@@ -322,13 +322,13 @@ class _AquadoroState extends State<Aquadoro> {
              ) 
            ],
          ),
-         onPressed: (){
+         onPressed: () {
 
           switch (startState) {
             case 1:{ //En caso que se de click al boton que sale cuando se inicia la app
               setState(() {
-                startState = 2; //Para cambiar al segundo estado
-                revisarTiempoConcentracion = true;
+                //  startState = 2; //Para cambiar al segundo estado
+                // revisarTiempoConcentracion = true;
               });
               /**
                * Metodo para correr el timer de Concentracion
@@ -386,7 +386,7 @@ class _AquadoroState extends State<Aquadoro> {
                   startState = 1; //Cambiar al primer estado
                   tipoActividad = 'Focus';
                   kindAvticity = false; //Para el icono de focus Aquadoro
-
+                  revisarTiempoConcentracion =true;
                   if(contador <= 5){
                    contador++;//Le sumamos un Aquadoro al contador
                    print('El valor del contador es  $contador');
@@ -424,7 +424,7 @@ class _AquadoroState extends State<Aquadoro> {
             default: print('StartStatexD?');
             break; //por defecto no hace nada xd
           }
-
+         
 
          },
         ),

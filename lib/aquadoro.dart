@@ -23,7 +23,7 @@ class Aquadoro extends StatefulWidget {
 class _AquadoroState extends State<Aquadoro> {
   
   var rand = Random();
-  int contador=0;
+  int contador=3;
   bool kindAvticity = false;//para cambiar los strings e iconos Focus/Relax
   String tipoActividad = "Focus";
   String tiempoPantalla ;//Es el timer que se muestra en pantalla
@@ -434,12 +434,12 @@ class _AquadoroState extends State<Aquadoro> {
                          kindAvticity = false;
                          tiempoPantalla = "${widget.tConcentracion.toString()}:00";
                         
-                        if(contador <= 5){
+                        if(contador < 4){
                         contador++;//Le sumamos un Aquadoro al contador
                         print('El valor del contador es  $contador');
                         }else{
-                          _mostrarAlerta();
-                          contador = 0;
+                          _mostrarAlerta(context);
+                          contador = 3;
                         }
                        }
                        
@@ -484,9 +484,59 @@ class _AquadoroState extends State<Aquadoro> {
   }
 
 
-  Widget _mostrarAlerta(){
-    return AlertDialog(
+  void _mostrarAlerta(BuildContext context){
+    showDialog(
+      context: context,
+      barrierDismissible: true, //Se cierra cuando das click afuera :)
+
+      builder: (context){
+        return AlertDialog(
+          shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(20.0) ), //Bordes redondeados
+          backgroundColor: Colors.teal[200] ,
+          elevation: 25.0,
+
+          title: Text('\t\tFelicidades :)', style: TextStyle(fontSize: 30),),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,//Ahora el tamaño del Column sera el minimo para embolver contenido
+            //De esta forma se define el tamaño del AlertDialog 
+            children: [
+              Text('Haz realizado 5 pomodoros seguidos 🤓',
+                style: TextStyle(fontSize: 20),
+              ),
+              Text('Te recomendamos dividir esta meta en unas mas pequeñas para ligerar la carga.',
+                style: TextStyle(fontSize: 20),
+              ),
+              Text('\t¿Tomamos un descanso de 30 minutos?',
+                style: TextStyle(fontSize: 20),
+              ),
+              Image.asset("assets/AlertImage.png",
+                fit: BoxFit.cover,
+                height: 170,
+              )
+  
+            
+            ],
+          ),
+          actions: [
+            FlatButton(
+              onPressed: (){
+                Navigator.pushNamed(context, 'goalsPage') ;
+                //Arreglar que mande a Goals page sin borrar las metas XD
+              },
+              child: Text('Sudividir', style: TextStyle(fontSize: 23),)
+            ),
+            FlatButton(
+              onPressed: (){
+                Navigator.of(context).pop();
+              },
+              child: Text('Descansar', style: TextStyle(fontSize: 23),)
+            ),
+          ],
+
+        );
+      }
 
     );
-  }
+  }//Widget _mostrarAlerta
+
 }//Class Aquadoro

@@ -47,6 +47,7 @@ flutter:
   assets:
    - assets/LiquidLoader.flr
    - assets/Acuadoro.png
+   - assets/AlertImage.png
    
   #  - images/a_dot_ham.jpeg
 

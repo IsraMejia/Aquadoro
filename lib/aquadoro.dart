@@ -364,9 +364,9 @@ class _AquadoroState extends State<Aquadoro> {
                  * Metodo para correr el timer de Concentracion
                  */
 
-                tConcentracionSeg = (widget.tConcentracion * 60);
-                Timer.periodic(Duration(seconds: 1), 
-                (t) { 
+                tConcentracionSeg = (widget.tConcentracion * 1/*60*/);
+                Timer.periodic( Duration(seconds: 1), 
+                 (t) { 
                   setState(() {
                     
                     if( tConcentracionSeg < 1 || revisarTiempoConcentracion == false){
@@ -417,7 +417,7 @@ class _AquadoroState extends State<Aquadoro> {
                 /**
                  * Metodo para correr el timer de Descanso
                  */
-                tDescansoSeg = (widget.tDescanso * 60);
+                tDescansoSeg = (widget.tDescanso * 1/*60*/);
                 Timer.periodic(Duration(seconds: 1),
                  (t) {
                    
@@ -438,6 +438,7 @@ class _AquadoroState extends State<Aquadoro> {
                         contador++;//Le sumamos un Aquadoro al contador
                         print('El valor del contador es  $contador');
                         }else{
+                          _mostrarAlerta();
                           contador = 0;
                         }
                        }
@@ -477,41 +478,15 @@ class _AquadoroState extends State<Aquadoro> {
 
 
       ),
-// >>>>>>> 7934176c502f02e843f0bd2af016432e36fdf406
       
-
-      // OutlineButton(
-      //  borderSide: BorderSide(
-      //    width: 3, color: Colors.blue[900], style: BorderStyle.solid ),
-      //  shape: RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.circular(15)
-      //  ),
-      //  child: Row(
-      //    children: <Widget>[
-      //      Text('P',
-      //       style: TextStyle(fontSize: 20, color: Colors.indigo[800]),
-      //      ),
-
-      //      Icon(Icons.adjust , size: sizebotones, color:Colors.blue[900]) 
-      //    ],
-      //  ),
-      //  onPressed: (){
-      //    Navigator.pushNamed(context, 'pomodoroPage' );
-      //  },
-      // ),
-
-       
-
      ]
     );
   }
 
-/*       Tenemos 4 estados del boton start(Focus/Relax):
- * 1-Cuando aun no inicia el timer listo de Concentracion y esta habilitado
- * 2-C. se ejecuta el timer de concentracion y esta deshabilitado
- * 3-C. termina TimerFocus, esta listo TimerRelax y se habilita relax
- * 4-C. se ejecuta TimerRelax y esta
-*/
 
+  Widget _mostrarAlerta(){
+    return AlertDialog(
 
+    );
+  }
 }//Class Aquadoro

@@ -314,6 +314,10 @@ class _AquadoroState extends State<Aquadoro> {
          ),
          onPressed: (){   
 
+           if(startState == 3){
+             contador = 0;
+           }
+
            if(tConcentracionSeg > 1 ){
              revisarTiempoConcentracion = false;
              startState = 1;

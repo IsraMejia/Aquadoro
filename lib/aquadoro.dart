@@ -495,19 +495,19 @@ class _AquadoroState extends State<Aquadoro> {
           backgroundColor: Colors.teal[200] ,
           elevation: 25.0,
 
-          title: Text('\t\tFelicidades :)', style: TextStyle(fontSize: 30),),
+          title: Text('\t\tFelicidades :)', style: TextStyle(fontSize: 30, color:  Colors.blue[900]  ),),
           content: Column(
             mainAxisSize: MainAxisSize.min,//Ahora el tamaño del Column sera el minimo para embolver contenido
             //De esta forma se define el tamaño del AlertDialog 
             children: [
               Text('Haz realizado 5 pomodoros seguidos 🤓',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20.5 , color: Colors.indigo[900] ),
               ),
               Text('Te recomendamos dividir esta meta en unas mas pequeñas para ligerar la carga.',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20  , color: Colors.indigo[900] ),
               ),
-              Text('\t¿Tomamos un descanso de 30 minutos?',
-                style: TextStyle(fontSize: 20),
+              Text('\t¿Nos tomamos un descanso de 30 minutos?',
+                style: TextStyle(fontSize: 20   , color: Colors.indigo[900]),
               ),
               Image.asset("assets/AlertImage.png",
                 fit: BoxFit.cover,
@@ -520,16 +520,16 @@ class _AquadoroState extends State<Aquadoro> {
           actions: [
             FlatButton(
               onPressed: (){
-                Navigator.pushNamed(context, 'goalsPage') ;
-                //Arreglar que mande a Goals page sin borrar las metas XD
+                // Navigator.pushNamed(context, 'goalsPage') ;//Arreglar que mande a Goals page sin borrar las metas XD
+                Navigator.popUntil(context, ModalRoute.withName('goalsPage')); //Te manda al GoalsPage sin perder lo que ya tenia 😯
               },
-              child: Text('Sudividir', style: TextStyle(fontSize: 23),)
+              child: Text('Sudividir', style: TextStyle(fontSize: 24, color: Colors.lightBlue[800] ))
             ),
             FlatButton(
               onPressed: (){
-                Navigator.of(context).pop();
+                Navigator.pop(context);
               },
-              child: Text('Descansar', style: TextStyle(fontSize: 23),)
+              child: Text('Descansar', style: TextStyle(fontSize: 24 , color: Colors.blueAccent[700]) )
             ),
           ],
 

@@ -380,7 +380,15 @@ class _AquadoroState extends State<Aquadoro> {
                       startState=2;
                       tipoActividad = "Relax";
                       kindAvticity = true;
-                      tiempoPantalla = "${widget.tDescanso.toString()}:00";
+                      // tiempoPantalla = "${widget.tDescanso.toString()}:00";
+
+                      if(contador == 4){
+                        _mostrarAlerta(context);
+                        contador = 5;
+                        tiempoPantalla = "${30}:00";
+                      }else{
+                        tiempoPantalla = "${widget.tDescanso.toString()}:00";
+                      }
                     }
                     }else if( tConcentracionSeg < 60){
                       tiempoPantalla='$tConcentracionSeg';
@@ -403,7 +411,8 @@ class _AquadoroState extends State<Aquadoro> {
                       tConcentracionSeg--;  
                     }
                   });
-                });
+                }
+                );
 
                 print('Se hizo click en Focus');
               
@@ -438,8 +447,8 @@ class _AquadoroState extends State<Aquadoro> {
                         contador++;//Le sumamos un Aquadoro al contador
                         print('El valor del contador es  $contador');
                         }else{
-                          _mostrarAlerta(context);
-                          contador = 3;
+                          // _mostrarAlerta(context);
+                          // contador = 5;
                         }
                        }
                        
@@ -469,6 +478,64 @@ class _AquadoroState extends State<Aquadoro> {
 
                 print('Se hizo click en Relax');
               }break;
+              //break case 2 Descanso normal
+
+              case 3:{//Timer de Relax Largo 30---------
+                setState(() {
+                  botonDeshabilitado = true; //Deshabilita el boton de Relax mientras el timer esta activo
+                  resetDeshabilitado = false; //Habilita el boton de reset 
+                });
+                /**
+                 * Metodo para correr el timer de Descanso
+                 */
+                tDescansoSeg = (30  * 1/*60*/);// ---------
+                Timer.periodic(Duration(seconds: 1),
+                 (t) {
+                   
+                   setState(() {
+                     if(tDescansoSeg < 1 || revisarTiempoDes ==false){
+                       t.cancel();
+                       revisarTiempoDes = true;
+                       botonDeshabilitado = false; //Habilita el boton de Focus
+                       resetDeshabilitado = true; //Deshabilita el boton de reset
+
+                       if(tDescansoSeg <1 ){
+                         startState =1; 
+                         tipoActividad = "Focus";
+                         kindAvticity = false;
+                         tiempoPantalla = "${widget.tConcentracion.toString()}:00";
+                         contador =0;
+      
+                       }
+                       
+                     }else if(tDescansoSeg < 60 ){
+                       tiempoPantalla = '$tDescansoSeg';
+                       tDescansoSeg--;
+                     } else if(tDescansoSeg < 3600 ){
+                       int m = tDescansoSeg ~/60;
+                       int s = tDescansoSeg - (60*m);
+                       if (s<10){
+                         tiempoPantalla = '$m:0$s';
+                       }else{
+                         tiempoPantalla = '$m:$s';
+                       }
+                       tDescansoSeg--;
+                     }else{
+                       int h = tDescansoSeg ~/3600;
+                       int t = tDescansoSeg - (3600*h);
+                       int m = t ~/ 60;
+                       int s = t-(60*m);
+                       tiempoPantalla = '$h:$m:$s';
+                       tDescansoSeg--; 
+                     }
+
+                   });
+                  });
+
+                print('Se hizo click en Relax');
+              }break;
+              //break case 3 Descanso Largo
+
 
               default: break; //por defecto no hace nada xd
             }
@@ -520,14 +587,26 @@ class _AquadoroState extends State<Aquadoro> {
           actions: [
             FlatButton(
               onPressed: (){
-                // Navigator.pushNamed(context, 'goalsPage') ;//Arreglar que mande a Goals page sin borrar las metas XD
-                Navigator.popUntil(context, ModalRoute.withName('goalsPage')); //Te manda al GoalsPage sin perder lo que ya tenia 😯
+                /**Para Regresar a goals page podemos hacerlo de dos manerass con el popUntil
+                 * o con el pop dos veces, despues de estarle moviendo muchas veces a la app
+                 * la mas sencilla y pracrica es la segunda (ademas que la otra falla aveces quien sabe porque)
+                */
+                //Navigator.pushNamed(context, 'goalsPage') ;//Arreglar que mande a Goals page sin borrar las metas XD
+                //Navigator.popUntil(context, ModalRoute.withName('goalsPage')); //Te manda al GoalsPage sin perder lo que ya tenia  :o
+                Navigator.pop(context);
+                Navigator.pop(context);
+                
               },
               child: Text('Sudividir', style: TextStyle(fontSize: 24, color: Colors.lightBlue[800] ))
             ),
             FlatButton(
               onPressed: (){
                 Navigator.pop(context);
+                //Aqui poner el 3er caso del switch case donde se hace el descanso largo
+                setState(() {
+                  startState =3;
+                  print('Se mando al startState3');
+                });
               },
               child: Text('Descansar', style: TextStyle(fontSize: 24 , color: Colors.blueAccent[700]) )
             ),

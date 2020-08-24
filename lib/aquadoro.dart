@@ -547,7 +547,7 @@ class _AquadoroState extends State<Aquadoro> {
                    });
                   });
 
-                print('Se hizo click en Relax');
+                print('Se hizo click en Relax ');
               }break;
               //break case 3 Descanso Largo
 

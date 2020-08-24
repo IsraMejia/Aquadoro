@@ -283,7 +283,7 @@ class _AquadoroState extends State<Aquadoro> {
               'assets/Acuadoro.flr',
               alignment: Alignment.center,
               fit: BoxFit.cover ,
-              animation: animacionActual,
+              animation: "100%Concentracion"  //animacionActual,
               /**Queremos que 
                * 
                */
@@ -455,7 +455,7 @@ class _AquadoroState extends State<Aquadoro> {
 
                     //Logica para definir la animacion del reloj de concentracion
                     // animacionActual <- Variable con la que se define
-
+                    /*
                     porcentaje = ( tConcentracionSeg * 100) /   concentracion100 ; //Porcentaje del tiempo transcurrido
                     
                     if(revisarTiempoConcentracion == true){
@@ -477,7 +477,7 @@ class _AquadoroState extends State<Aquadoro> {
                       }
                       print('El porcentaje es: $porcentaje');
                     }
-                    
+                     */
                     
 
                   });
@@ -546,6 +546,7 @@ class _AquadoroState extends State<Aquadoro> {
 
                      //Logica para definir la animacion del reloj de concentracion
                     // animacionActual <- Variable con la que se define
+                    /*
                     if(porcentaje == 0.0){
                       animacionActual = "75-100%Concentracion";
                     }
@@ -570,7 +571,7 @@ class _AquadoroState extends State<Aquadoro> {
                       }
                       print('El porcentaje es: $porcentaje');
                     }
-
+                    */
 
 
 

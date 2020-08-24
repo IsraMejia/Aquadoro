@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math'; //Para el random del contador que despues no se usara
 import 'dart:async'; //para hacer uso del Timer
-
+import 'package:flare_flutter/flare_actor.dart';
 
 class Aquadoro extends StatefulWidget {
   // const Aquadoro({Key key}) : super(key: key);
@@ -21,7 +21,7 @@ class Aquadoro extends StatefulWidget {
 }
 
 class _AquadoroState extends State<Aquadoro> {
-  
+  String animacionActual = "reset" ;
   var rand = Random();
   int contador=3;
   bool kindAvticity = false;//para cambiar los strings e iconos Focus/Relax
@@ -31,7 +31,7 @@ class _AquadoroState extends State<Aquadoro> {
   //Tiempo en segundos
   int tConcentracionSeg =0;
   int tDescansoSeg =0;
-
+  double porcentaje; //Para comparar al momento de decidir animacion de tiempo
 
   //para ver si el contador esta haciendo la cuenta regresiva o esta detenido
   bool revisarTiempoConcentracion = true;
@@ -67,6 +67,11 @@ class _AquadoroState extends State<Aquadoro> {
 
   @override
   Widget build(BuildContext context) {
+  
+  //TiempoTotal Comparacion para Animaciones
+  int concentracion100 = widget.tConcentracion * 1 /*60*/;
+  int descanso100 = widget.tDescanso * 1 /*60*/ ;
+  double ancho = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -79,9 +84,9 @@ class _AquadoroState extends State<Aquadoro> {
                  SizedBox(height: 40,),
                  _contadorAcuadoros(),
                  SizedBox(height: 20,),
-                 _aquadoroStack(),
+                 _aquadoroStack(ancho),
                  Expanded(child: Container()),
-                 _botones(context),
+                 _botones(context, concentracion100, descanso100),
                  Expanded(child: Container()),
 
               ],
@@ -99,8 +104,8 @@ class _AquadoroState extends State<Aquadoro> {
       gradient: LinearGradient(
         
         colors: <Color>[
-          Colors.cyan[600],
           Colors.cyan[500],
+          Colors.cyan[700],
         ]
       )
      ),
@@ -252,38 +257,60 @@ class _AquadoroState extends State<Aquadoro> {
 
   }
 
-  Widget _aquadoroStack(){
+  Widget _aquadoroStack( double ancho ){
     return Stack(
       children: <Widget>[
 
-        Container(
-          width: 357,
-          height: 357,
-          margin: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            image: DecorationImage(
-              image: AssetImage("assets/Acuadoro.png" ),
-              fit: BoxFit.cover
-          ),
-         ),
+        // Container(
+        //   width: 357,
+        //   height: 357,
+        //   margin: EdgeInsets.all(10),
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.circular(10.0),
+        //     image: DecorationImage(
+        //       image: AssetImage("assets/Acuadoro.png" ),
+        //       fit: BoxFit.cover
+        //   ),
+        //  ),
+        // ),
+
+        Container(//Cerrar y volver a cargar desde cero la app la primera
+        //vez porque los cambios fueron bastantes incluyendo en el yaml
+            // color: Colors.indigo ,
+            width: 400 ,
+            height: 400,
+            child: FlareActor(
+              'assets/Acuadoro.flr',
+              alignment: Alignment.center,
+              fit: BoxFit.cover ,
+              animation: animacionActual,
+              /**Queremos que 
+               * 
+               */
+            ),
         ),
 
+
+
         Positioned(
-          top: 140, left: 96, 
+          top: 160, left: ancho * 0.28 , 
           child: Container(
-            height: 81, width: 170,
+            height: 100, width: 170,
             //  color: Colors.cyan[500], //Para poder ver que espacio se ocupa
             child: Column(
               children: <Widget>[
-                Text(tipoActividad,
-                  style: TextStyle(
-                    fontSize: 23, color: Colors.indigo[800], 
-                    fontWeight: FontWeight.bold 
+                Center(
+                  child: Text(tipoActividad,
+                    style: TextStyle(
+                      fontSize: 25, color: Colors.indigo[800], 
+                      fontWeight: FontWeight.bold 
+                    ),
                   ),
                 ),
-                Text( tiempoPantalla,
-                style: TextStyle(fontSize: 45, color: Colors.indigo[600]),
+                Center(
+                  child: Text( tiempoPantalla,
+                  style: TextStyle(fontSize: 55, color: Colors.indigo[600]),
+                  ),
                 ),
               ],
             ),
@@ -294,7 +321,7 @@ class _AquadoroState extends State<Aquadoro> {
     );
   }
 
-  Widget _botones(BuildContext context){
+  Widget _botones(BuildContext context ,  int concentracion100, int descanso100){
     double sizebotones= 27.0;
     return Row(
      mainAxisAlignment: MainAxisAlignment.spaceAround ,
@@ -399,10 +426,12 @@ class _AquadoroState extends State<Aquadoro> {
                         tiempoPantalla = "${30}:00";
                       }else{
                         tiempoPantalla = "${widget.tDescanso.toString()}:00";
+                        print(porcentaje);
                       }
 
                     }//Si sigue Corriendo el tiempo de concentracion:
-
+                    
+                     //Logica para imprimir en pantalla el timer
                     }else if( tConcentracionSeg < 60){ //Si solo quedan menos de un minuto
                       tiempoPantalla='$tConcentracionSeg';
                       tConcentracionSeg--;
@@ -423,6 +452,34 @@ class _AquadoroState extends State<Aquadoro> {
                       tiempoPantalla = '$h:$m:$s';
                       tConcentracionSeg--;  
                     }
+
+                    //Logica para definir la animacion del reloj de concentracion
+                    // animacionActual <- Variable con la que se define
+
+                    porcentaje = ( tConcentracionSeg * 100) /   concentracion100 ; //Porcentaje del tiempo transcurrido
+                    
+                    if(revisarTiempoConcentracion == true){
+                      if((porcentaje >= 75) && (porcentaje < 100)){
+                        animacionActual = "0-25%Concentracion";
+                        print(animacionActual);
+                      } else if ( (porcentaje >= 50) && (porcentaje < 75) ){
+                        animacionActual = "25-50%Concentracion" ;
+                        print(animacionActual);
+                      } else if ( (porcentaje >= 25) && (porcentaje < 50) ){
+                        animacionActual = "50-75%Concentracion" ;
+                        print(animacionActual);
+                      } else if ( (porcentaje >= 5) && (porcentaje < 25) ){
+                        animacionActual = "75-100%Concentracion" ;
+                        print(animacionActual);
+                      }else if( porcentaje <= 2){
+                        animacionActual = "finConcentracion" ;
+                        print(animacionActual);
+                      }
+                      print('El porcentaje es: $porcentaje');
+                    }
+                    
+                    
+
                   });
                 }
                 );
@@ -463,8 +520,9 @@ class _AquadoroState extends State<Aquadoro> {
                         print('El valor del contador es  $contador');
                         }
 
-                       }
-                       
+                       } //De lo contrario aun esta en cuenta regresiba 
+
+                      //Logica para mostrar en pantalla el tiempo
                      }else if(tDescansoSeg < 60 ){ //Si queda menos de un minuto de descanso
                        tiempoPantalla = '$tDescansoSeg';
                        tDescansoSeg--;
@@ -485,6 +543,37 @@ class _AquadoroState extends State<Aquadoro> {
                        tiempoPantalla = '$h:$m:$s';
                        tDescansoSeg--; 
                      }
+
+                     //Logica para definir la animacion del reloj de concentracion
+                    // animacionActual <- Variable con la que se define
+                    if(porcentaje == 0.0){
+                      animacionActual = "75-100%Concentracion";
+                    }
+                    porcentaje = ( tDescansoSeg * 100) /   descanso100 ; //Porcentaje del tiempo transcurrido
+                    
+                    if(revisarTiempoDes == true){
+                      if((porcentaje >= 75) && (porcentaje < 100)){
+                        animacionActual = "75-100%Concentracion";
+                        print(animacionActual);
+                      } else if ( (porcentaje >= 50) && (porcentaje < 75) ){
+                        animacionActual = "50-75%Concentracion" ;
+                        print(animacionActual);
+                      } else if ( (porcentaje >= 25) && (porcentaje < 50) ){
+                        animacionActual = "25-50%Concentracion" ;
+                        print(animacionActual);
+                      } else if ( (porcentaje <= 5)  && (porcentaje < 25) ){
+                        animacionActual = "0-25%Concentracion" ;
+                        print(animacionActual);
+                      } else if( porcentaje <= 2){
+                        animacionActual = "finDescanso" ;
+                        print(animacionActual);
+                      }
+                      print('El porcentaje es: $porcentaje');
+                    }
+
+
+
+
 
                    });
                   });

@@ -460,7 +460,7 @@ class _AquadoroState extends State<Aquadoro> {
                     
                     if(revisarTiempoConcentracion == true){
                       if((porcentaje >= 75) && (porcentaje < 100)){
-                        animacionActual = "0-25%Concentracion";
+                        animacionActual = "0-25%Concentracion" ;
                         print(animacionActual);
                       } else if ( (porcentaje >= 50) && (porcentaje < 75) ){
                         animacionActual = "25-50%Concentracion" ;

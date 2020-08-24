@@ -281,7 +281,7 @@ class _AquadoroState extends State<Aquadoro> {
             height: 400,
             child: FlareActor(
               'assets/Acuadoro.flr',
-              alignment: Alignment.center,
+              alignment: Alignment.center ,
               fit: BoxFit.cover ,
               animation: "100%Concentracion"  //animacionActual,
               /**Queremos que 

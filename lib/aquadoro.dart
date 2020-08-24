@@ -116,7 +116,7 @@ class _AquadoroState extends State<Aquadoro> {
         Container(
           width: 50,
           child: FlatButton(
-            padding: EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(right: 10, top: 10),
             onPressed: () {
                 Navigator.pop(context);
                 print("Tengo registrado : ${widget.actividad}");
@@ -129,8 +129,11 @@ class _AquadoroState extends State<Aquadoro> {
 
         
         Expanded(
-          child: Text( widget.actividad ,
-            style: TextStyle( fontSize: 30,fontWeight: FontWeight.bold ,color: Colors.cyan[50] ),
+          child: Container(
+            padding: EdgeInsets.only(top: 10 ),
+            child: Text( widget.actividad ,
+              style: TextStyle( fontSize: 30,fontWeight: FontWeight.bold ,color: Colors.cyan[50] ),
+            ),
           ),
         ),
         
@@ -374,12 +377,15 @@ class _AquadoroState extends State<Aquadoro> {
                   setState(() {
                     
                     if( tConcentracionSeg < 1 || revisarTiempoConcentracion == false){
+                      //En caso de que se acabe el tiempo ó ya definicio el tiempo de concentracion
                     t.cancel();
                     revisarTiempoConcentracion = true;
                     tiempoPantalla = "${widget.tConcentracion.toString()}:00";
                     botonDeshabilitado = false; //Habilita el boton de Focus
                     resetDeshabilitado = true; //Deshabilita el boton de reset
+
                     if(tConcentracionSeg < 1){
+                      //En caso de que solo se haya acabado el tiempo de concentracion
                       botonDeshabilitado=false;
                       startState=2;
                       tipoActividad = "Relax";
@@ -387,17 +393,20 @@ class _AquadoroState extends State<Aquadoro> {
                       // tiempoPantalla = "${widget.tDescanso.toString()}:00";
 
                       if(contador == 4){
+                        //Si debe pasar a su descanso largo de 30 minutos
                         _mostrarAlerta(context);
                         contador = 5;
                         tiempoPantalla = "${30}:00";
                       }else{
                         tiempoPantalla = "${widget.tDescanso.toString()}:00";
                       }
-                    }
-                    }else if( tConcentracionSeg < 60){
+
+                    }//Si sigue Corriendo el tiempo de concentracion:
+
+                    }else if( tConcentracionSeg < 60){ //Si solo quedan menos de un minuto
                       tiempoPantalla='$tConcentracionSeg';
                       tConcentracionSeg--;
-                    }else if( tConcentracionSeg <3600 ){
+                    }else if( tConcentracionSeg <3600 ){//Si quedan minutos, menos de una hora
                       int m = tConcentracionSeg ~/60;
                       int s = tConcentracionSeg - (60*m);
                       if (s<10){
@@ -406,7 +415,7 @@ class _AquadoroState extends State<Aquadoro> {
                          tiempoPantalla = '$m:$s';
                        }
                       tConcentracionSeg--;
-                    }else{
+                    }else{                             //Si quedan horas 
                       int h = tConcentracionSeg ~/3600;
                       int t = tConcentracionSeg - (3600*h);
                       int m = t ~/ 60;
@@ -436,12 +445,14 @@ class _AquadoroState extends State<Aquadoro> {
                    
                    setState(() {
                      if(tDescansoSeg < 1 || revisarTiempoDes ==false){
+                        //En caso de que se acabe el tiempo ó ya definio el revisarTiempoDescanso
                        t.cancel();
                        revisarTiempoDes = true;
                        botonDeshabilitado = false; //Habilita el boton de Focus
                        resetDeshabilitado = true; //Deshabilita el boton de reset
 
                        if(tDescansoSeg <1 ){
+                         //Si se acabo el tiempo de descanso
                          startState =1; 
                          tipoActividad = "Focus";
                          kindAvticity = false;
@@ -450,16 +461,14 @@ class _AquadoroState extends State<Aquadoro> {
                         if(contador < 4){
                         contador++;//Le sumamos un Aquadoro al contador
                         print('El valor del contador es  $contador');
-                        }else{
-                          // _mostrarAlerta(context);
-                          // contador = 5;
                         }
+
                        }
                        
-                     }else if(tDescansoSeg < 60 ){
+                     }else if(tDescansoSeg < 60 ){ //Si queda menos de un minuto de descanso
                        tiempoPantalla = '$tDescansoSeg';
                        tDescansoSeg--;
-                     } else if(tDescansoSeg < 3600 ){
+                     } else if(tDescansoSeg < 3600 ){ //Si queda menos de una hota de descanso
                        int m = tDescansoSeg ~/60;
                        int s = tDescansoSeg - (60*m);
                        if (s<10){
@@ -468,7 +477,7 @@ class _AquadoroState extends State<Aquadoro> {
                          tiempoPantalla = '$m:$s';
                        }
                        tDescansoSeg--;
-                     }else{
+                     }else{                          //Si quedan horas de descanso
                        int h = tDescansoSeg ~/3600;
                        int t = tDescansoSeg - (3600*h);
                        int m = t ~/ 60;
@@ -498,12 +507,14 @@ class _AquadoroState extends State<Aquadoro> {
                    
                    setState(() {
                      if(tDescansoSeg < 1 || revisarTiempoDes ==false){
+                       //En caso de que se acabe el tiempo ó ya definio el revisarTiempoDescanso
                        t.cancel();
                        revisarTiempoDes = true;
                        botonDeshabilitado = false; //Habilita el boton de Focus
                        resetDeshabilitado = true; //Deshabilita el boton de reset
 
                        if(tDescansoSeg <1 ){
+                         //En caso de que solo se acabo el tiempo 
                          startState =1; 
                          tipoActividad = "Focus";
                          kindAvticity = false;
@@ -512,19 +523,19 @@ class _AquadoroState extends State<Aquadoro> {
       
                        }
                        
-                     }else if(tDescansoSeg < 60 ){
+                     }else if(tDescansoSeg < 60 ){ //Si queda menos de un minuto
                        tiempoPantalla = '$tDescansoSeg';
                        tDescansoSeg--;
-                     } else if(tDescansoSeg < 3600 ){
+                     } else if(tDescansoSeg < 3600 ){ //si queda mas de un minuto, pero menos de una hora
                        int m = tDescansoSeg ~/60;
                        int s = tDescansoSeg - (60*m);
-                       if (s<10){
+                       if (s<10){                     
                          tiempoPantalla = '$m:0$s';
                        }else{
                          tiempoPantalla = '$m:$s';
                        }
                        tDescansoSeg--;
-                     }else{
+                     }else{                          //Si quedan horas en el timer
                        int h = tDescansoSeg ~/3600;
                        int t = tDescansoSeg - (3600*h);
                        int m = t ~/ 60;

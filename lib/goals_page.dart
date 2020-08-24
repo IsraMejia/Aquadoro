@@ -109,7 +109,7 @@ class _GoalsPageState extends State<GoalsPage> with TickerProviderStateMixin {
 
   Widget _fadeText() {
     return  Container(
-      margin: EdgeInsets.only(bottom :10.0) ,
+      margin: EdgeInsets.only(bottom :10.0 , top: 10.0) ,
       child: SizedBox(
         width: 350.0,
         height: 75.0,
